@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Зарабатывай от 500€ в месяц на фрилансе без опыта</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header class="header">
+    <div class="container">
+        <div class="logo">FreelanceStart</div>
+        <button class="menu-toggle" id="menuToggle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <nav class="nav" id="mainNav">  <!-- Добавлен класс nav -->
+    <a href="#features">Преимущества</a>
+    <a href="#how-it-works">Как это работает</a>
+    <a href="#pricing">Тарифы</a>
+    <a href="#testimonials">Отзывы</a>
+</nav>
+    </div>
+    <div class="language-switcher">
+    <button class="lang-btn active" data-lang="ru">RU</button>
+    <button class="lang-btn" data-lang="en">EN</button>
+</div>
+</header>
+
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Как зарабатывать от 500€ в месяц на фрилансе без опыта?</h1>
+                <p class="subtitle">Получи проверенную систему, которая помогла 1000+ новичков найти первых клиентов</p>
+                <div class="cta-box">
+                    <a href="payment.html?plan=basic" class="btn btn-primary" onclick="event.preventDefault(); window.location.href='payment.html?plan=basic'">Купить сейчас за 15€</a>
+                    <div class="guarantee">
+                        <i class="fas fa-shield-alt"></i>
+                        <span>Гарантия возврата 7 дней</span>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-image">
+                <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Фриланс работа">
+            </div>
+        </div>
+    </section>
+
+    <section id="features" class="features">
+        <div class="container">
+            <h2>Что ты получишь:</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="icon"><i class="fas fa-check-circle"></i></div>
+                    <h3>5 проверенных способов</h3>
+                    <p>Найти первые заказы без вложений и специальных навыков</p>
+                </div>
+                <div class="feature-card">
+                    <div class="icon"><i class="fas fa-envelope"></i></div>
+                    <h3>Шаблоны сообщений</h3>
+                    <p>Готовые тексты для клиентов - просто копируй и отправляй</p>
+                </div>
+                <div class="feature-card">
+                    <div class="icon"><i class="fas fa-list-ul"></i></div>
+                    <h3>20+ проверенных бирж</h3>
+                    <p>Где новички берут простые заказы с оплатой от 10€</p>
+                </div>
+                <div class="feature-card">
+                    <div class="icon"><i class="fas fa-tasks"></i></div>
+                    <h3>Чек-лист первых шагов</h3>
+                    <p>Что делать первые 7 дней, чтобы получить оплату</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="how-it-works" class="how-it-works">
+        <div class="container">
+            <h2>Как это работает?</h2>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number"></div>
+                    <h3>Оплачиваете доступ</h3>
+                    <p>Вы получаете мгновенный доступ к материалам после оплаты</p>
+                </div>
+                <div class="step">
+                    <div class="step-number"></div>
+                    <h3>Изучаете материалы</h3>
+                    <p>Проходите пошаговую систему за 2-3 вечера</p>
+                </div>
+                <div class="step">
+                    <div class="step-number"></div>
+                    <h3>Находите первых клиентов</h3>
+                    <p>Применяете готовые шаблоны и стратегии</p>
+                </div>
+                <div class="step">
+                    <div class="step-number"></div>
+                    <h3>Получаете оплату</h3>
+                    <p>Выводите первые деньги уже через 7-14 дней</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="pricing" class="pricing">
+        <div class="container">
+            <h2>Выберите свой вариант</h2>
+            <div class="pricing-cards">
+                <div class="pricing-card">
+                    <h3>Базовый</h3>
+                    <div class="price">15€</div>
+                    <ul class="features-list">
+                        <li><i class="fas fa-check"></i> PDF-гайд (50 страниц)</li>
+                        <li><i class="fas fa-check"></i> Шаблоны сообщений</li>
+                        <li><i class="fas fa-check"></i> Список бирж фриланса</li>
+                        <li><i class="fas fa-check"></i> Чек-лист первых шагов</li>
+                    </ul>
+                    <a href="payment.html?plan=basic" class="btn btn-primary" onclick="event.preventDefault(); window.location.href='payment.html?plan=basic'">Купить сейчас</a>
+                </div>
+                <div class="pricing-card popular">
+                    <div class="popular-badge">Популярный</div>
+                    <h3>Расширенный</h3>
+                    <div class="price">29€</div>
+                    <ul class="features-list">
+                        <li><i class="fas fa-check"></i> Всё из Базового пакета</li>
+                        <li><i class="fas fa-check"></i> Видео-уроки (3 часа)</li>
+                        <li><i class="fas fa-check"></i> Примеры профилей</li>
+                        <li><i class="fas fa-check"></i> Шаблоны договоров</li>
+                        <li><i class="fas fa-check"></i> Доступ в чат поддержки</li>
+                    </ul>
+                    <a href="payment.html?plan=extended" class="btn btn-primary" onclick="event.preventDefault(); window.location.href='payment.html?plan=extended'">Купить сейчас</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="testimonials" class="testimonials">
+        <div class="container">
+            <h2>Отзывы наших клиентов</h2>
+            <div class="testimonial-cards" id="testimonials-container">
+                <!-- Отзывы будут добавляться через JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <section class="cta">
+        <div class="container">
+            <h2>Готовы начать зарабатывать?</h2>
+            <p>Получите мгновенный доступ к материалам и начните находить клиентов уже сегодня</p>
+            <a href="payment.html?plan=basic" class="btn btn-primary" onclick="event.preventDefault(); window.location.href='payment.html?plan=basic'">Получить за 15€</a>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-logo">FreelanceStart</div>
+            <div class="footer-links">
+                <a href="#">Политика конфиденциальности</a>
+                <a href="#">Условия использования</a>
+                <a href="#">Контакты</a>
+            </div>
+            <div class="footer-social">
+    <a href="https://t.me/Freelancestar_bot" class="social-link" data-social="telegram">
+        <i class="fab fa-telegram"></i>
+    </a>
+</div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

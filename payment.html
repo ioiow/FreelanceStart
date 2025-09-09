@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Оплата - FreelanceStart</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-inner">
+                <div class="logo" data-aos="fade-down">
+                    <span class="logo-icon">🚀</span>
+                    <span class="logo-text">Freelance<span>Start</span></span>
+                </div>
+
+                <a href="index.html" class="back-link" data-aos="fade-down">
+                    <i class="fas fa-arrow-left"></i> На главную
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="payment-page">
+        <div class="container">
+            <div class="payment-content">
+                <!-- Основной контент оплаты -->
+                <div class="payment-main">
+                    <div class="payment-header" data-aos="fade-up">
+                        <h1>Оформление заказа</h1>
+                        <p>Завершите покупку и получите мгновенный доступ к материалам</p>
+                    </div>
+
+                    <div class="order-summary" data-aos="fade-up" data-aos-delay="100">
+                        <h3>Ваш заказ:</h3>
+                        <div class="selected-plan" id="selectedPlan">
+                            <!-- Выбранный тариф будет отображен динамически -->
+                        </div>
+                        <div class="order-total">
+                            <span>Итого к оплате:</span>
+                            <span class="total-price" id="totalPrice">0€</span>
+                        </div>
+                    </div>
+
+                    <div class="payment-methods" data-aos="fade-up" data-aos-delay="150">
+                        <h3>Выберите способ оплаты:</h3>
+                        
+                        <div class="method-tabs">
+                            <button class="method-tab active" data-method="crypto">
+                                <i class="fas fa-coins"></i> Криптовалюта (USDT)
+                            </button>
+                            <button class="method-tab" data-method="donate">
+                                <i class="fas fa-credit-card"></i> DonationAlerts
+                            </button>
+                            <button class="method-tab" data-method="card">
+                                <i class="fas fa-credit-card"></i> Банковская карта
+                            </button>
+                        </div>
+
+                        <!-- Криптовалютный платеж -->
+                        <div id="cryptoPayment" class="payment-method active">
+                            <div class="payment-alert info">
+                                <i class="fas fa-info-circle"></i>
+                                <span>Самый быстрый способ оплаты. Мгновенное зачисление.</span>
+                            </div>
+                            
+                            <div class="crypto-content">
+                                <div class="crypto-qr" id="cryptoQr">
+                                    <!-- QR-код будет сгенерирован динамически -->
+                                </div>
+                                
+                                <div class="crypto-info">
+                                    <h4>Оплата через Telegram</h4>
+                                    <p>Быстро и безопасно через криптовалюту USDT</p>
+                                    
+                                    <a href="#" class="btn btn-primary btn-crypto" id="cryptoLink" target="_blank">
+                                        <i class="fab fa-telegram"></i> Оплатить через Telegram
+                                    </a>
+                                </div>
+                            </div>
+                            
+                            <div class="crypto-instructions">
+                                <h4>Инструкция по оплате:</h4>
+                                <ol>
+                                    <li>Нажмите кнопку "Оплатить через Telegram"</li>
+                                    <li>В открывшемся Telegram выберите сумму</li>
+                                    <li>Подтвердите платеж USDT</li>
+                                    <li>После подтверждения вы автоматически получите доступ к материала</li>
+                                </ol>
+                            </div>
+                        </div>
+
+                        <!-- DonationAlerts платеж -->
+                        <div id="donatePayment" class="payment-method">
+                            <div class="payment-alert info">
+                                <i class="fas fa-info-circle"></i>
+                                <span>Оплата картой, Qiwi, Яндекс.Деньги и другими способами</span>
+                            </div>
+                            
+                            <div class="donate-content">
+                                <div class="donate-icon">
+                                    <i class="fas fa-credit-card"></i>
+                                </div>
+                                
+                                <div class="donate-info">
+                                    <h4>Оплата через DonationAlerts</h4>
+                                    <p>Множество способов оплаты для вашего удобства</p>
+                                    
+                                    <a href="https://www.donationalerts.com/r/joeio" class="btn btn-primary btn-donate" target="_blank">
+                                        <i class="fas fa-external-link-alt"></i> Перейти к оплате
+                                    </a>
+                                </div>
+                            </div>
+                            
+                            <div class="donate-description">
+                                <h4>Инструкция по оплате:</h4>
+                                <ol>
+                                    <li>Нажмите кнопку "Перейти к оплате"</li>
+                                    <li>Выберите удобный способ оплаты (карта, Qiwi, криптовалюта и др.)</li>
+                                    <li>Введите сумму <strong id="donateAmount">15€</strong></li>
+                                    <li>В комментарии укажите ваш email для доступа к материалам</li>
+                                    <li>После оплаты доступ будет предоставлен в течение 15 минут</li>
+                                </ol>
+                                <p class="notice">При проблемах с доступом напишите нам в Telegram: @Freelancestar_bot</p>
+                            </div>
+                        </div>
+
+                        <!-- Карточный платеж (недоступен) -->
+                        <div id="cardPayment" class="payment-method">
+                            <div class="payment-alert warning">
+                                <i class="fas fa-exclamation-triangle"></i>
+                                <span>В вашей стране оплата картой временно недоступна. Пожалуйста, выберите другой способ оплаты.</span>
+                            </div>
+                            
+                            <div class="card-form" style="display: none;">
+                                <form id="paymentForm">
+                                    <div class="form-grid">
+                                        <div class="form-group">
+                                            <label for="cardNumber">Номер карты</label>
+                                            <input type="text" id="cardNumber" placeholder="1234 5678 9012 3456" maxlength="19">
+                                            <div class="card-icons">
+                                                <i class="fab fa-cc-visa"></i>
+                                                <i class="fab fa-cc-mastercard"></i>
+                                                <i class="fab fa-cc-amex"></i>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="expiry">Срок действия</label>
+                                            <input type="text" id="expiry" placeholder="ММ/ГГ" maxlength="5">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="cvv">CVV</label>
+                                            <input type="text" id="cvv" placeholder="123" maxlength="3">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="name">Имя на карте</label>
+                                            <input type="text" id="name" placeholder="Как на карте">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-agreement">
+                                        <input type="checkbox" id="terms" required>
+                                        <label for="terms">Я согласен с <a href="#">условиями использования</a> и <a href="#">политикой конфиденциальности</a></label>
+                                    </div>
+
+                                    <button type="submit" class="btn btn-primary btn-pay">
+                                        <i class="fas fa-lock"></i> Оплатить <span id="payAmount">0€</span>
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Боковая панель с преимуществами -->
+                <div class="payment-sidebar">
+                    <div class="benefits-card" data-aos="fade-left">
+                        <h3>Что вы получите сразу после оплаты:</h3>
+                        
+                        <div class="benefits-list">
+                            <div class="benefit-item">
+                                <div class="benefit-icon">
+                                    <i class="fas fa-download"></i>
+                                </div>
+                                <div class="benefit-content">
+                                    <h4>Мгновенный доступ</h4>
+                                    <p>Все материалы доступны сразу после подтверждения оплаты</p>
+                                </div>
+                            </div>
+
+                            <div class="benefit-item">
+                                <div class="benefit-icon">
+                                    <i class="fas fa-file-pdf"></i>
+                                </div>
+                                <div class="benefit-content">
+                                    <h4>PDF-файлы</h4>
+                                    <p>Скачивайте материалы и изучайте их офлайн</p>
+                                </div>
+                            </div>
+
+                            <div class="benefit-item">
+                                <div class="benefit-icon">
+                                    <i class="fas fa-comments"></i>
+                                </div>
+                                <div class="benefit-content">
+                                    <h4>Поддержка 24/7</h4>
+                                    <p>Ответим на все вопросы в Telegram чате</p>
+                                </div>
+                            </div>
+
+                            <div class="benefit-item">
+                                <div class="benefit-icon">
+                                    <i class="fas fa-rocket"></i>
+                                </div>
+                                <div class="benefit-content">
+                                    <h4>Быстрый старт</h4>
+                                    <p>Начните зарабатывать уже через 7 дней</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="guarantee-box">
+                            <div class="guarantee-header">
+                                <i class="fas fa-shield-alt"></i>
+                                <h4>Гарантия возврата</h4>
+                            </div>
+                            <p>Если в течение 7 дней материалы вам не понравятся, мы вернем полную стоимость без лишних вопросов</p>
+                        </div>
+                    </div>
+
+                    <div class="support-card" data-aos="fade-left" data-aos-delay="100">
+                        <h4>Нужна помощь?</h4>
+                        <p>Мы всегда готовы помочь с выбором тарифа или ответить на вопросы по оплате</p>
+                        <a href="https://t.me/Freelancestar_bot" class="btn btn-outline" target="_blank">
+                            <i class="fab fa-telegram"></i> Написать в поддержку
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <span class="logo-icon">🚀</span>
+                        <span class="logo-text">Freelance<span>Start</span></span>
+                    </div>
+                    <p class="footer-description">
+                        Помогаем начинающим фрилансерам найти первых клиентов 
+                        и начать зарабатывать удалённо с нуля.
+                    </p>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Навигация</h4>
+                    <div class="footer-links">
+                        <a href="index.html">Главная</a>
+                        <a href="index.html#features">Преимущества</a>
+                        <a href="index.html#pricing">Тарифы</a>
+                        <a href="index.html#testimonials">Отзывы</a>
+                    </div>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Поддержка</h4>
+                    <div class="footer-links">
+                        <a href="https://t.me/Freelancestar_bot" target="_blank">Telegram</a>
+                        <a href="#">Политика конфиденциальности</a>
+                        <a href="#">Условия использования</a>
+                    </div>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Способы оплаты</h4>
+                    <div class="payment-methods">
+                        <div class="payment-method">
+                            <i class="fab fa-telegram"></i>
+                            <span>Telegram (USDT)</span>
+                        </div>
+                        <div class="payment-method">
+                            <i class="fas fa-credit-card"></i>
+                            <span>DonationAlerts</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2024 FreelanceStart. Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
+    <script src="payment.js"></script>
+</body>
+</html>

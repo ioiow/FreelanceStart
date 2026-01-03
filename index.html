@@ -1,0 +1,2767 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FreelanceStart — Премиум фриланс-услуги</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- ========================================
+         🔥 FIREBASE SDK — Подключение Firebase
+         Раскомментируйте эти строки после настройки Firebase
+         ======================================== -->
+    <!-- <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script> -->
+    <!-- <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script> -->
+    
+    <style>
+        /* ========================================
+           PREMIUM APPLE-STYLE CSS
+           ======================================== */
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary: #0071e3;
+            --primary-hover: #0077ED;
+            --text-primary: #1d1d1f;
+            --text-secondary: #86868b;
+            --bg-primary: #ffffff;
+            --bg-secondary: #f5f5f7;
+            --bg-tertiary: #fbfbfd;
+            --border: rgba(0,0,0,0.08);
+            --shadow-sm: 0 2px 8px rgba(0,0,0,0.04);
+            --shadow-md: 0 4px 24px rgba(0,0,0,0.08);
+            --shadow-lg: 0 12px 48px rgba(0,0,0,0.12);
+            --radius-sm: 12px;
+            --radius-md: 20px;
+            --radius-lg: 28px;
+            --radius-pill: 980px;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+        
+        /* ========================================
+           HEADER & NAVIGATION
+           ======================================== */
+        
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(255,255,255,0.72);
+            backdrop-filter: saturate(180%) blur(20px);
+            -webkit-backdrop-filter: saturate(180%) blur(20px);
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .header-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            height: 56px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: var(--text-primary);
+            font-weight: 600;
+            font-size: 18px;
+        }
+        
+        .logo-icon {
+            width: 36px;
+            height: 36px;
+        }
+        
+        /* Desktop Navigation */
+        .nav-desktop {
+            display: none;
+            align-items: center;
+            gap: 32px;
+        }
+        
+        @media (min-width: 768px) {
+            .nav-desktop {
+                display: flex;
+            }
+            .burger-btn {
+                display: none !important;
+            }
+        }
+        
+        .nav-link {
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-size: 14px;
+            font-weight: 500;
+            transition: color 0.2s;
+            cursor: pointer;
+        }
+        
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--text-primary);
+        }
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 10px 20px;
+            border-radius: var(--radius-pill);
+            font-size: 14px;
+            font-weight: 500;
+            text-decoration: none;
+            cursor: pointer;
+            border: none;
+            transition: all 0.2s;
+        }
+        
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: var(--primary-hover);
+            transform: scale(1.02);
+        }
+        
+        .btn-secondary {
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+        }
+        
+        .btn-secondary:hover {
+            background: #e8e8ed;
+        }
+        
+        .btn-outline {
+            background: transparent;
+            color: var(--primary);
+            border: 1.5px solid var(--primary);
+        }
+        
+        .btn-outline:hover {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .btn-small {
+            padding: 8px 16px;
+            font-size: 13px;
+        }
+        
+        .btn-icon {
+            width: 18px;
+            height: 18px;
+        }
+        
+        /* Burger Button */
+        .burger-btn {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 44px;
+            height: 44px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            gap: 5px;
+            padding: 10px;
+            border-radius: var(--radius-sm);
+            transition: background 0.2s;
+        }
+        
+        .burger-btn:hover {
+            background: var(--bg-secondary);
+        }
+        
+        .burger-line {
+            width: 20px;
+            height: 2px;
+            background: var(--text-primary);
+            border-radius: 2px;
+            transition: all 0.3s;
+        }
+        
+        .burger-btn.active .burger-line:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+        
+        .burger-btn.active .burger-line:nth-child(2) {
+            opacity: 0;
+        }
+        
+        .burger-btn.active .burger-line:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -5px);
+        }
+        
+        /* Mobile Sidebar */
+        .sidebar-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.3);
+            backdrop-filter: blur(4px);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s;
+            z-index: 1001;
+        }
+        
+        .sidebar-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .sidebar {
+            position: fixed;
+            top: 0;
+            right: -300px;
+            width: 300px;
+            height: 100%;
+            background: var(--bg-primary);
+            z-index: 1002;
+            transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            flex-direction: column;
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .sidebar.active {
+            right: 0;
+        }
+        
+        .sidebar-header {
+            padding: 16px 20px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .sidebar-close {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: var(--bg-secondary);
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s;
+        }
+        
+        .sidebar-close:hover {
+            background: #e8e8ed;
+        }
+        
+        .sidebar-close svg {
+            width: 18px;
+            height: 18px;
+            color: var(--text-primary);
+        }
+        
+        .sidebar-nav {
+            flex: 1;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        
+        .sidebar-link {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 14px 16px;
+            text-decoration: none;
+            color: var(--text-primary);
+            font-size: 16px;
+            font-weight: 500;
+            border-radius: var(--radius-md);
+            transition: background 0.2s;
+            cursor: pointer;
+        }
+        
+        .sidebar-link:hover,
+        .sidebar-link.active {
+            background: var(--bg-secondary);
+        }
+        
+        .sidebar-link svg {
+            width: 22px;
+            height: 22px;
+            color: var(--text-secondary);
+        }
+        
+        .sidebar-link.active svg {
+            color: var(--primary);
+        }
+        
+        .sidebar-footer {
+            padding: 20px;
+            border-top: 1px solid var(--border);
+        }
+        
+        .sidebar-login-btn {
+            width: 100%;
+            padding: 14px;
+            font-size: 16px;
+        }
+        
+        /* ========================================
+           MAIN CONTENT
+           ======================================== */
+        
+        .main {
+            padding-top: 56px;
+        }
+        
+        .section {
+            padding: 80px 24px;
+        }
+        
+        @media (min-width: 768px) {
+            .section {
+                padding: 120px 48px;
+            }
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 64px;
+        }
+        
+        .section-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background: linear-gradient(135deg, rgba(0,113,227,0.1), rgba(94,92,230,0.1));
+            border-radius: var(--radius-pill);
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+        
+        .section-label svg {
+            width: 16px;
+            height: 16px;
+        }
+        
+        .section-title {
+            font-size: clamp(32px, 5vw, 56px);
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            line-height: 1.1;
+            margin-bottom: 20px;
+        }
+        
+        .section-subtitle {
+            font-size: 18px;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+        
+        /* ========================================
+           HERO SECTION
+           ======================================== */
+        
+        .hero {
+            min-height: calc(100vh - 56px);
+            display: flex;
+            align-items: center;
+            background: linear-gradient(180deg, var(--bg-tertiary) 0%, var(--bg-primary) 100%);
+            overflow: hidden;
+        }
+        
+        .hero-content {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 48px;
+            align-items: center;
+        }
+        
+        @media (min-width: 1024px) {
+            .hero-content {
+                grid-template-columns: 1fr 1fr;
+                gap: 80px;
+            }
+        }
+        
+        .hero-text h1 {
+            font-size: clamp(40px, 6vw, 72px);
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            line-height: 1.05;
+            margin-bottom: 24px;
+        }
+        
+        .hero-text h1 span {
+            background: linear-gradient(135deg, #0071e3, #5e5ce6, #bf5af2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .hero-text p {
+            font-size: 20px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 40px;
+            max-width: 480px;
+        }
+        
+        .hero-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+        
+        .hero-buttons .btn {
+            padding: 16px 32px;
+            font-size: 16px;
+        }
+        
+        .hero-visual {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .hero-graphic {
+            width: 100%;
+            max-width: 500px;
+            aspect-ratio: 1;
+            position: relative;
+        }
+        
+        .hero-circle {
+            position: absolute;
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        .hero-circle-1 {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(0,113,227,0.15), rgba(94,92,230,0.1));
+            animation-delay: 0s;
+        }
+        
+        .hero-circle-2 {
+            width: 70%;
+            height: 70%;
+            top: 15%;
+            left: 15%;
+            background: linear-gradient(135deg, rgba(0,113,227,0.2), rgba(191,90,242,0.15));
+            animation-delay: 0.5s;
+        }
+        
+        .hero-circle-3 {
+            width: 40%;
+            height: 40%;
+            top: 30%;
+            left: 30%;
+            background: linear-gradient(135deg, var(--primary), #5e5ce6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation-delay: 1s;
+            box-shadow: 0 20px 60px rgba(0,113,227,0.4);
+        }
+        
+        .hero-icon {
+            width: 60%;
+            height: 60%;
+            color: white;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-20px) scale(1.02); }
+        }
+        
+        /* Features Grid */
+        .features-mini {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 24px;
+            margin-top: 64px;
+            padding-top: 64px;
+            border-top: 1px solid var(--border);
+        }
+        
+        .feature-mini {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+        }
+        
+        .feature-mini-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: var(--radius-md);
+            background: var(--bg-secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        
+        .feature-mini-icon svg {
+            width: 24px;
+            height: 24px;
+            color: var(--primary);
+        }
+        
+        .feature-mini h4 {
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+        
+        .feature-mini p {
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+        
+        /* ========================================
+           CARDS
+           ======================================== */
+        
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 24px;
+        }
+        
+        @media (max-width: 400px) {
+            .cards-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .card {
+            background: var(--bg-primary);
+            border-radius: var(--radius-lg);
+            padding: 32px;
+            border: 1px solid var(--border);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+            border-color: transparent;
+        }
+        
+        .card-badge {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            padding: 6px 12px;
+            border-radius: var(--radius-pill);
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+        
+        .card-badge.hot {
+            background: linear-gradient(135deg, #ff2d55, #ff6b8a);
+            color: white;
+        }
+        
+        .card-badge.new {
+            background: linear-gradient(135deg, #34c759, #30d158);
+            color: white;
+        }
+        
+        .card-badge.popular {
+            background: linear-gradient(135deg, #ff9500, #ffcc00);
+            color: white;
+        }
+        
+        .card-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        
+        .card-icon svg {
+            width: 28px;
+            height: 28px;
+            color: white;
+        }
+        
+        .card-icon.blue { background: linear-gradient(135deg, #0071e3, #40a9ff); }
+        .card-icon.purple { background: linear-gradient(135deg, #5e5ce6, #bf5af2); }
+        .card-icon.green { background: linear-gradient(135deg, #34c759, #30d158); }
+        .card-icon.orange { background: linear-gradient(135deg, #ff9500, #ffcc00); }
+        .card-icon.pink { background: linear-gradient(135deg, #ff2d55, #ff6b8a); }
+        .card-icon.teal { background: linear-gradient(135deg, #5ac8fa, #64d2ff); }
+        .card-icon.indigo { background: linear-gradient(135deg, #5856d6, #7c7aff); }
+        .card-icon.red { background: linear-gradient(135deg, #ff3b30, #ff6961); }
+        .card-icon.yellow { background: linear-gradient(135deg, #ffcc00, #ffe066); }
+        .card-icon.cyan { background: linear-gradient(135deg, #32ade6, #5ac8fa); }
+        .card-icon.mint { background: linear-gradient(135deg, #00c7be, #66d4cf); }
+        .card-icon.brown { background: linear-gradient(135deg, #a2845e, #c4a77d); }
+        
+        .card-title {
+            font-size: 22px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+        
+        .card-description {
+            font-size: 15px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+        
+        .card-price {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+        
+        .card-price span {
+            font-size: 15px;
+            font-weight: 400;
+            color: var(--text-secondary);
+        }
+        
+        .card-price-old {
+            font-size: 16px;
+            color: var(--text-secondary);
+            text-decoration: line-through;
+            margin-bottom: 16px;
+        }
+        
+        .card-features {
+            list-style: none;
+            margin-bottom: 28px;
+        }
+        
+        .card-features li {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 10px 0;
+            font-size: 14px;
+            color: var(--text-secondary);
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .card-features li:last-child {
+            border-bottom: none;
+        }
+        
+        .card-features svg {
+            width: 18px;
+            height: 18px;
+            color: #34c759;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+        
+        .card .btn {
+            width: 100%;
+        }
+        
+        /* ========================================
+           CONTACTS
+           ======================================== */
+        
+        .contacts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+        }
+        
+        .contact-card {
+            background: var(--bg-primary);
+            border-radius: var(--radius-lg);
+            padding: 32px;
+            border: 1px solid var(--border);
+            text-align: center;
+            transition: all 0.3s;
+        }
+        
+        .contact-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .contact-icon {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .contact-icon svg {
+            width: 32px;
+            height: 32px;
+            color: white;
+        }
+        
+        .contact-icon.telegram { background: linear-gradient(135deg, #0088cc, #00b4d8); }
+        .contact-icon.whatsapp { background: linear-gradient(135deg, #25d366, #128c7e); }
+        .contact-icon.instagram { background: linear-gradient(135deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); }
+        .contact-icon.email { background: linear-gradient(135deg, #ea4335, #ff6b6b); }
+        
+        .contact-card h3 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        
+        .contact-card p {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+        }
+        
+        /* ========================================
+           MODALS
+           ======================================== */
+        
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.4);
+            backdrop-filter: blur(8px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s;
+        }
+        
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .modal {
+            background: var(--bg-primary);
+            border-radius: var(--radius-lg);
+            width: 100%;
+            max-width: 440px;
+            max-height: 90vh;
+            overflow-y: auto;
+            transform: scale(0.95) translateY(20px);
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .modal-overlay.active .modal {
+            transform: scale(1) translateY(0);
+        }
+        
+        .modal-header {
+            padding: 24px 24px 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .modal-header h2 {
+            font-size: 22px;
+            font-weight: 600;
+        }
+        
+        .modal-close {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: var(--bg-secondary);
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s;
+        }
+        
+        .modal-close:hover {
+            background: #e8e8ed;
+        }
+        
+        .modal-close svg {
+            width: 18px;
+            height: 18px;
+        }
+        
+        .modal-body {
+            padding: 24px;
+        }
+        
+        .modal-back {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: none;
+            border: none;
+            color: var(--primary);
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            padding: 0;
+            margin-bottom: 20px;
+        }
+        
+        .modal-back svg {
+            width: 18px;
+            height: 18px;
+        }
+        
+        /* Auth Modal */
+        .auth-divider {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin: 24px 0;
+            color: var(--text-secondary);
+            font-size: 13px;
+        }
+        
+        .auth-divider::before,
+        .auth-divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--border);
+        }
+        
+        .auth-input {
+            width: 100%;
+            padding: 14px 16px;
+            border: 1.5px solid var(--border);
+            border-radius: var(--radius-sm);
+            font-size: 15px;
+            margin-bottom: 12px;
+            transition: border-color 0.2s;
+            font-family: inherit;
+        }
+        
+        .auth-input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+        
+        .google-btn {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            padding: 14px;
+            background: var(--bg-primary);
+            border: 1.5px solid var(--border);
+            border-radius: var(--radius-sm);
+            font-size: 15px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: inherit;
+        }
+        
+        .google-btn:hover {
+            background: var(--bg-secondary);
+        }
+        
+        .google-btn svg {
+            width: 20px;
+            height: 20px;
+        }
+        
+        /* Payment Modal */
+        .payment-item {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 16px;
+            border: 1.5px solid var(--border);
+            border-radius: var(--radius-md);
+            margin-bottom: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .payment-item:hover {
+            border-color: var(--primary);
+            background: rgba(0,113,227,0.02);
+        }
+        
+        .payment-item-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        
+        .payment-item-icon svg {
+            width: 24px;
+            height: 24px;
+            color: white;
+        }
+        
+        .payment-item-icon.card { background: linear-gradient(135deg, #0071e3, #40a9ff); }
+        .payment-item-icon.sbp { background: linear-gradient(135deg, #5e5ce6, #bf5af2); }
+        .payment-item-icon.wallet { background: linear-gradient(135deg, #0088cc, #00b4d8); }
+        .payment-item-icon.stars { background: linear-gradient(135deg, #ff9500, #ffcc00); }
+        .payment-item-icon.crypto { background: linear-gradient(135deg, #f7931a, #ffd93d); }
+        
+        .payment-item-info {
+            flex: 1;
+        }
+        
+        .payment-item-info h4 {
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 2px;
+        }
+        
+        .payment-item-info p {
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+        
+        .payment-item-arrow {
+            width: 20px;
+            height: 20px;
+            flex-shrink: 0;
+            color: var(--text-secondary);
+        }
+        
+        .payment-item-arrow svg {
+            width: 20px;
+            height: 20px;
+        }
+        
+        .payment-badges {
+            display: flex;
+            gap: 6px;
+        }
+        
+        .badge {
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+        
+        .badge-popular {
+            background: rgba(255,149,0,0.15);
+            color: #ff9500;
+        }
+        
+        .badge-fast {
+            background: rgba(52,199,89,0.15);
+            color: #34c759;
+        }
+        
+        /* Payment Details */
+        .payment-details {
+            text-align: center;
+        }
+        
+        .payment-amount {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+        
+        .payment-product {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-bottom: 28px;
+        }
+        
+        .payment-field {
+            background: var(--bg-secondary);
+            border-radius: var(--radius-md);
+            padding: 16px;
+            margin-bottom: 12px;
+            text-align: left;
+        }
+        
+        .payment-field-label {
+            font-size: 12px;
+            color: var(--text-secondary);
+            margin-bottom: 6px;
+        }
+        
+        .payment-field-value {
+            font-size: 16px;
+            font-weight: 600;
+            word-break: break-all;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+        }
+        
+        .copy-btn {
+            padding: 6px 12px;
+            background: var(--bg-primary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            flex-shrink: 0;
+        }
+        
+        .copy-btn:hover {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+        
+        /* Crypto Selection */
+        .crypto-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+        
+        .crypto-option {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            padding: 16px;
+            background: var(--bg-secondary);
+            border: 2px solid transparent;
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .crypto-option:hover {
+            border-color: var(--primary);
+        }
+        
+        .crypto-option.selected {
+            border-color: var(--primary);
+            background: rgba(0,113,227,0.05);
+        }
+        
+        .crypto-option svg {
+            width: 32px;
+            height: 32px;
+        }
+        
+        .crypto-option span {
+            font-size: 13px;
+            font-weight: 600;
+        }
+        
+        /* Payment Status */
+        .payment-status {
+            padding: 20px;
+            border-radius: var(--radius-md);
+            text-align: center;
+            margin-top: 20px;
+        }
+        
+        .payment-status.loading {
+            background: var(--bg-secondary);
+        }
+        
+        .payment-status.error {
+            background: rgba(255,45,85,0.1);
+        }
+        
+        .payment-status.success {
+            background: rgba(52,199,89,0.1);
+        }
+        
+        .payment-status svg {
+            width: 48px;
+            height: 48px;
+            margin-bottom: 12px;
+        }
+        
+        .payment-status.error svg { color: #ff2d55; }
+        .payment-status.success svg { color: #34c759; }
+        
+        .payment-status h4 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        
+        .payment-status p {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+        
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid var(--border);
+            border-top-color: var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 16px;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        /* ========================================
+           LANGUAGE SWITCHER
+           ======================================== */
+        
+        .lang-switch {
+            display: flex;
+            align-items: center;
+            background: var(--bg-secondary);
+            border-radius: var(--radius-pill);
+            padding: 4px;
+        }
+        
+        .lang-btn {
+            padding: 6px 12px;
+            border: none;
+            background: transparent;
+            border-radius: var(--radius-pill);
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .lang-btn.active {
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            box-shadow: var(--shadow-sm);
+        }
+        
+        /* ========================================
+           FOOTER
+           ======================================== */
+        
+        .footer {
+            background: var(--bg-secondary);
+            padding: 48px 24px;
+            border-top: 1px solid var(--border);
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 24px;
+        }
+        
+        .footer-links {
+            display: flex;
+            gap: 32px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .footer-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.2s;
+        }
+        
+        .footer-link:hover {
+            color: var(--text-primary);
+        }
+        
+        .footer-copy {
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+        
+        /* ========================================
+           UTILITIES
+           ======================================== */
+        
+        .hidden { display: none !important; }
+        .text-center { text-align: center; }
+        .mt-4 { margin-top: 16px; }
+        .mt-6 { margin-top: 24px; }
+        .mb-4 { margin-bottom: 16px; }
+        
+        /* User info when logged in */
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .user-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        
+        .user-name {
+            font-size: 14px;
+            font-weight: 500;
+        }
+        
+        /* Скрыть все элементы авторизации */
+#auth-button-desktop,
+#auth-button-mobile,
+#modal-auth {
+    display: none !important;
+}
+    </style>
+</head>
+<body>
+    <!-- ========================================
+         HEADER
+         ======================================== -->
+    <header class="header">
+        <div class="header-inner">
+            <a href="#" class="logo" onclick="showPage('home')">
+                <!-- Professional Logo SVG -->
+                <svg class="logo-icon" viewBox="0 0 36 36" fill="none">
+                    <rect width="36" height="36" rx="8" fill="url(#logo-gradient)"/>
+                    <path d="M10 18L16 12L26 22M16 24L22 18" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <defs>
+                        <linearGradient id="logo-gradient" x1="0" y1="0" x2="36" y2="36">
+                            <stop stop-color="#0071e3"/>
+                            <stop offset="1" stop-color="#5e5ce6"/>
+                        </linearGradient>
+                    </defs>
+                </svg>
+                <span>FreelanceStart</span>
+            </a>
+            
+            <!-- Desktop Navigation -->
+            <nav class="nav-desktop">
+                <a class="nav-link active" onclick="showPage('home')" data-page="home" data-text="nav.home">Главная</a>
+                <a class="nav-link" onclick="showPage('services')" data-page="services" data-text="nav.services">Услуги</a>
+                <a class="nav-link" onclick="showPage('courses')" data-page="courses" data-text="nav.courses">Курсы</a>
+                <a class="nav-link" onclick="showPage('contacts')" data-page="contacts" data-text="nav.contacts">Контакты</a>
+            </nav>
+            
+            <div class="nav-desktop" style="gap: 16px;">
+                <div class="lang-switch">
+                    <button class="lang-btn active" onclick="setLang('ru')">RU</button>
+                    <button class="lang-btn" onclick="setLang('en')">EN</button>
+                </div>
+                <div id="auth-button-desktop">
+                    <button class="btn btn-primary btn-small" onclick="openModal('auth')" data-text="nav.login">Войти</button>
+                </div>
+            </div>
+            
+            <!-- Burger Button (Mobile) -->
+            <button class="burger-btn" onclick="toggleSidebar()">
+                <span class="burger-line"></span>
+                <span class="burger-line"></span>
+                <span class="burger-line"></span>
+            </button>
+        </div>
+    </header>
+    
+    <!-- ========================================
+         MOBILE SIDEBAR
+         ======================================== -->
+    <div class="sidebar-overlay" onclick="closeSidebar()"></div>
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <span style="font-weight: 600; font-size: 16px;" data-text="sidebar.menu">Меню</span>
+            <button class="sidebar-close" onclick="closeSidebar()">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M18 6L6 18M6 6l12 12"/>
+                </svg>
+            </button>
+        </div>
+        <nav class="sidebar-nav">
+            <a class="sidebar-link active" onclick="showPage('home'); closeSidebar();" data-page="home">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                    <polyline points="9 22 9 12 15 12 15 22"/>
+                </svg>
+                <span data-text="nav.home">Главная</span>
+            </a>
+            <a class="sidebar-link" onclick="showPage('services'); closeSidebar();" data-page="services">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="2" y="3" width="20" height="14" rx="2"/>
+                    <path d="M8 21h8M12 17v4"/>
+                </svg>
+                <span data-text="nav.services">Услуги</span>
+            </a>
+            <a class="sidebar-link" onclick="showPage('courses'); closeSidebar();" data-page="courses">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
+                    <path d="M6 12v5c3 3 9 3 12 0v-5"/>
+                </svg>
+                <span data-text="nav.courses">Курсы</span>
+            </a>
+            <a class="sidebar-link" onclick="showPage('contacts'); closeSidebar();" data-page="contacts">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.362 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.338 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>
+                </svg>
+                <span data-text="nav.contacts">Контакты</span>
+            </a>
+            <div style="flex: 1;"></div>
+            <div class="lang-switch" style="width: 100%; justify-content: center;">
+                <button class="lang-btn active" onclick="setLang('ru')">RU</button>
+                <button class="lang-btn" onclick="setLang('en')">EN</button>
+            </div>
+        </nav>
+        <div class="sidebar-footer" id="auth-button-mobile">
+            <button class="btn btn-primary sidebar-login-btn" onclick="openModal('auth'); closeSidebar();" data-text="nav.login">Войти</button>
+        </div>
+    </aside>
+    
+    <!-- ========================================
+         MAIN CONTENT
+         ======================================== -->
+    <main class="main">
+        <!-- HOME PAGE -->
+        <div id="page-home" class="page">
+            <section class="hero section">
+                <div class="container">
+                    <div class="hero-content">
+                        <div class="hero-text">
+                            <h1 data-text="hero.title">Ваш успех — наша <span>работа</span></h1>
+                            <p data-text="hero.subtitle">Премиальные фриланс-услуги для вашего бизнеса. Разработка, дизайн, маркетинг — всё в одном месте.</p>
+                            <div class="hero-buttons">
+                                <button class="btn btn-primary" onclick="showPage('services')">
+                                    <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <rect x="2" y="3" width="20" height="14" rx="2"/>
+                                        <path d="M8 21h8M12 17v4"/>
+                                    </svg>
+                                    <span data-text="hero.servicesBtn">Смотреть услуги</span>
+                                </button>
+                                <button class="btn btn-outline" onclick="showPage('courses')">
+                                    <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
+                                        <path d="M6 12v5c3 3 9 3 12 0v-5"/>
+                                    </svg>
+                                    <span data-text="hero.coursesBtn">Наши курсы</span>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="hero-visual">
+                            <div class="hero-graphic">
+                                <div class="hero-circle hero-circle-1"></div>
+                                <div class="hero-circle hero-circle-2"></div>
+                                <div class="hero-circle hero-circle-3">
+                                    <svg class="hero-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                        <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="features-mini">
+                        <div class="feature-mini">
+                            <div class="feature-mini-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <polyline points="12 6 12 12 16 14"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <h4 data-text="features.fast.title">Быстрое выполнение</h4>
+                                <p data-text="features.fast.desc">Сдаём проекты точно в срок</p>
+                            </div>
+                        </div>
+                        <div class="feature-mini">
+                            <div class="feature-mini-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <h4 data-text="features.quality.title">Гарантия качества</h4>
+                                <p data-text="features.quality.desc">Бесплатные правки</p>
+                            </div>
+                        </div>
+                        <div class="feature-mini">
+                            <div class="feature-mini-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                                    <circle cx="9" cy="7" r="4"/>
+                                    <path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <h4 data-text="features.support.title">Поддержка 24/7</h4>
+                                <p data-text="features.support.desc">Всегда на связи</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+        
+        <!-- SERVICES PAGE -->
+        <div id="page-services" class="page hidden">
+            <section class="section">
+                <div class="container">
+                    <div class="section-header">
+                        <div class="section-label">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="2" y="3" width="20" height="14" rx="2"/>
+                                <path d="M8 21h8M12 17v4"/>
+                            </svg>
+                            <span data-text="services.label">Услуги</span>
+                        </div>
+                        <h2 class="section-title" data-text="services.title">Профессиональные услуги</h2>
+                        <p class="section-subtitle" data-text="services.subtitle">Качественные решения для вашего бизнеса от опытных специалистов</p>
+                    </div>
+                    <div class="cards-grid" id="services-grid"></div>
+                </div>
+            </section>
+        </div>
+        
+        <!-- COURSES PAGE -->
+        <div id="page-courses" class="page hidden">
+            <section class="section">
+                <div class="container">
+                    <div class="section-header">
+                        <div class="section-label">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
+                                <path d="M6 12v5c3 3 9 3 12 0v-5"/>
+                            </svg>
+                            <span data-text="courses.label">Обучение</span>
+                        </div>
+                        <h2 class="section-title" data-text="courses.title">Курсы для профессионалов</h2>
+                        <p class="section-subtitle" data-text="courses.subtitle">Освойте востребованные навыки с нуля до профессионала</p>
+                    </div>
+                    <div class="cards-grid" id="courses-grid"></div>
+                </div>
+            </section>
+        </div>
+        
+        <!-- CONTACTS PAGE -->
+        <div id="page-contacts" class="page hidden">
+            <section class="section">
+                <div class="container">
+                    <div class="section-header">
+                        <div class="section-label">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.362 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.338 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>
+                            </svg>
+                            <span data-text="contacts.label">Контакты</span>
+                        </div>
+                        <h2 class="section-title" data-text="contacts.title">Свяжитесь с нами</h2>
+                        <p class="section-subtitle" data-text="contacts.subtitle">Выберите удобный способ связи — мы всегда рады помочь</p>
+                    </div>
+                    <div class="contacts-grid" id="contacts-grid"></div>
+                </div>
+            </section>
+        </div>
+    </main>
+    
+    <!-- ========================================
+         FOOTER
+         ======================================== -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="#" class="footer-link" onclick="showPage('home')" data-text="nav.home">Главная</a>
+                <a href="#" class="footer-link" onclick="showPage('services')" data-text="nav.services">Услуги</a>
+                <a href="#" class="footer-link" onclick="showPage('courses')" data-text="nav.courses">Курсы</a>
+                <a href="#" class="footer-link" onclick="showPage('contacts')" data-text="nav.contacts">Контакты</a>
+            </div>
+            <p class="footer-copy">© 2024 FreelanceStart. <span data-text="footer.rights">Все права защищены.</span></p>
+        </div>
+    </footer>
+    
+    <!-- ========================================
+         AUTH MODAL
+         ======================================== -->
+    <div class="modal-overlay" id="modal-auth">
+        <div class="modal">
+            <div class="modal-header">
+                <h2 data-text="auth.title">Вход в аккаунт</h2>
+                <button class="modal-close" onclick="closeModal('auth')">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M18 6L6 18M6 6l12 12"/>
+                    </svg>
+                </button>
+            </div>
+            <div class="modal-body">
+                <button class="google-btn" onclick="signInWithGoogle()">
+                    <svg viewBox="0 0 24 24">
+                        <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                        <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                        <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+                        <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+                    </svg>
+                    <span data-text="auth.google">Войти через Google</span>
+                </button>
+                
+                <div class="auth-divider" data-text="auth.or">или</div>
+                
+                <input type="email" class="auth-input" placeholder="Email" data-placeholder="auth.email">
+                <input type="password" class="auth-input" placeholder="Пароль" data-placeholder="auth.password">
+                <button class="btn btn-primary" style="width: 100%; margin-top: 8px;" data-text="nav.login">Войти</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- ========================================
+         PAYMENT MODAL
+         ======================================== -->
+    <div class="modal-overlay" id="modal-payment">
+        <div class="modal">
+            <div class="modal-header">
+                <h2 id="payment-modal-title" data-text="payment.title">Оплата</h2>
+                <button class="modal-close" onclick="closeModal('payment')">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M18 6L6 18M6 6l12 12"/>
+                    </svg>
+                </button>
+            </div>
+            <div class="modal-body" id="payment-modal-body">
+                <!-- Dynamic content -->
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================================
+         JAVASCRIPT
+         ======================================== -->
+    <script>
+        /* ================================================================
+           ⚙️ CONFIGURATION — ВСЕ НАСТРОЙКИ ЗДЕСЬ / ALL SETTINGS HERE
+           ================================================================ */
+        const CONFIG = {
+            
+            // ===========================================
+            // 🔥 FIREBASE CONFIGURATION
+            // ===========================================
+            // 📝 ИНСТРУКЦИЯ ПО ПОДКЛЮЧЕНИЮ GOOGLE ВХОДА:
+            //
+            // ШАГ 1: Создайте проект Firebase
+            //   - Перейдите на https://console.firebase.google.com
+            //   - Нажмите "Создать проект" (Create Project)
+            //   - Введите название проекта (например: my-freelance-site)
+            //   - Нажмите "Продолжить" и дождитесь создания
+            //
+            // ШАГ 2: Включите Google авторизацию
+            //   - В меню слева нажмите "Authentication"
+            //   - Нажмите "Начать" (Get started)
+            //   - Перейдите во вкладку "Sign-in method"
+            //   - Найдите "Google" и нажмите на него
+            //   - Включите переключатель "Enable"
+            //   - Выберите email для поддержки проекта
+            //   - Нажмите "Сохранить"
+            //
+            // ШАГ 3: Получите конфигурацию
+            //   - Нажмите на шестерёнку ⚙️ → "Настройки проекта"
+            //   - Прокрутите вниз до "Ваши приложения"
+            //   - Нажмите на иконку </> (Web)
+            //   - Введите название приложения
+            //   - НЕ включайте Firebase Hosting
+            //   - Нажмите "Зарегистрировать приложение"
+            //   - Скопируйте значения из firebaseConfig СЮДА ↓
+            //
+            // ШАГ 4: Вставьте данные и включите
+            //   - Замените значения ниже на ваши
+            //   - Поменяйте enabled: false на enabled: true
+            //   - Раскомментируйте строки Firebase SDK в <head> (наверху файла)
+            //
+            // ===========================================
+            firebase: {
+                enabled: false,  // ← ПОМЕНЯЙТЕ НА true ПОСЛЕ НАСТРОЙКИ!
+                
+                // ↓↓↓ ВСТАВЬТЕ ВАШИ ДАННЫЕ ИЗ FIREBASE CONSOLE ↓↓↓
+                apiKey: "AIzaSyXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+                authDomain: "your-project-id.firebaseapp.com",
+                projectId: "your-project-id",
+                storageBucket: "your-project-id.appspot.com",
+                messagingSenderId: "123456789012",
+                appId: "1:123456789012:web:abcdef123456789"
+                // ↑↑↑ ВСТАВЬТЕ ВАШИ ДАННЫЕ ИЗ FIREBASE CONSOLE ↑↑↑
+            },
+
+            // ===========================================
+            // 💰 CURRENCY / ВАЛЮТА
+            // ===========================================
+            currency: {
+                code: "RUB",        // RUB, USD, EUR
+                symbol: "$",        // ₽, $, €
+                position: "after"   // "before" ($100) или "after" (100₽)
+            },
+
+            // ===========================================
+            // 🔗 SOCIAL LINKS / ССЫЛКИ НА СОЦСЕТИ
+            // ⚠️ Чтобы СКРЫТЬ соцсеть: удалите строку или поставьте ""
+            // ===========================================
+            social: {
+                telegram: "https://t.me/Freelancestar_bot",
+                whatsapp: "",
+                instagram: "",
+                email: "hello@freelancestart.com",
+                phone: "+7 (890) 000-55-77"
+            },
+
+            // ===========================================
+            // 🆘 SUPPORT LINK / ССЫЛКА НА ПОДДЕРЖКУ
+            // ===========================================
+            supportLink: "https://t.me/FreelanceStartip_bot",
+
+            // ===========================================
+            // 💳 CARD PAYMENT / ОПЛАТА КАРТОЙ
+            // ===========================================
+            cardPayment: {
+                cardNumber: "******************",
+                cardHolder: "******************",
+                bankName: "******************"
+            },
+
+            // ===========================================
+            // 🏦 SBP PAYMENT / СБП
+            // ===========================================
+            sbpPayment: {
+                phoneNumber: "",
+                bankName: "",
+                recipientName: "Иван И."
+            },
+
+            // ===========================================
+            // 💬 TELEGRAM WALLET
+            // ===========================================
+            telegramWallet: {
+                botLink: "",
+                username: "@YourWallet"
+            },
+
+            // ===========================================
+            // ⭐ TELEGRAM STARS
+            // ===========================================
+            telegramStars: {
+                botLink: "https://t.me/your_stars_bot",
+                starsRate: 42.74  // 1 RUB = 1.5 stars
+            },
+
+            // ===========================================
+            // 🪙 CRYPTOCURRENCY / КРИПТОВАЛЮТА
+            // enabled: true/false — показать/скрыть монету
+            // ===========================================
+            crypto: {
+                bitcoin: {
+                    enabled: true,
+                    name: "Bitcoin",
+                    symbol: "BTC",
+                    address: "bc1qufeh2wcarrxqqk5r7nlru25dfjenhfuv9ld5zg",
+                    network: "Bitcoin",
+                    color: "#f7931a"
+                },
+                ethereum: {
+                    enabled: true,
+                    name: "Ethereum",
+                    symbol: "ETH",
+                    address: "0x11C4fDEa62AeA869bCECB19d4A5B3dF083F4a8e9",
+                    network: "ERC-20",
+                    color: "#627eea"
+                },
+                usdt_trc20: {
+                    enabled: true,
+                    name: "USDT",
+                    symbol: "TRC20",
+                    address: "TDjixXoMCQ3MZPE4id34tRojkiEieWfogz",
+                    network: "Tron (TRC-20)",
+                    color: "#26a17b"
+                },
+                ton: {
+                    enabled: true,
+                    name: "TON",
+                    symbol: "TON",
+                    address: "UQCfWYj90QwVaf689WQJsUYTmnKaVTM7jhbOx2rnkvaU9UoE",
+                    network: "TON",
+                    color: "#0098ea"
+                }
+            },
+
+            // ===========================================
+            // 💳 PAYMENT METHODS / СПОСОБЫ ОПЛАТЫ
+            // ===========================================
+            paymentMethods: {
+                card: { enabled: true, popular: true, fast: false },
+                sbp: { enabled: true, popular: false, fast: true },
+                telegramWallet: { enabled: true, popular: false, fast: true },
+                telegramStars: { enabled: true, popular: false, fast: false },
+                crypto: { enabled: true, popular: false, fast: false }
+            },
+
+            // ===========================================
+            // 💼 SERVICES / УСЛУГИ
+            // starsLink — индивидуальная ссылка для Stars
+            // ===========================================
+            services: [
+                {
+                    id: "web",
+                    icon: "code",
+                    color: "blue",
+                    price: 159.99,
+                    features: ["featLanding", "featAdmin", "featAdaptive", "featSEO"],
+                    starsLink: "https://t.me/$NMeHtUjgyFLICAAAcD3frcuZvho"
+                },
+                {
+                    id: "design",
+                    icon: "design",
+                    color: "purple",
+                    price: 79.99,
+                    features: ["featLogo", "featBranding", "featSocial", "featPrint"],
+                    starsLink: "https://t.me/$uiXKwUjgyFLJCAAAM-BMhpTjDK0"
+                },
+                {
+                    id: "marketing",
+                    icon: "marketing",
+                    color: "green",
+                    price: 119.99,
+                    features: ["featSMM", "featContext", "featAnalytics", "featStrategy"],
+                    starsLink: "https://t.me/$7VmcTkjgyFLKCAAA5qnpIwUboh8"
+                },
+                {
+                    id: "content",
+                    icon: "content",
+                    color: "orange",
+                    price: 49.99,
+                    features: ["featArticles", "featCopy", "featTranslation", "featEdit"],
+                    starsLink: "https://t.me/$qAa8ukjgyFLLCAAAfxIUEMwjwEk"
+                },
+                {
+                    id: "video",
+                    icon: "video",
+                    color: "pink",
+                    price: 210.99,
+                    features: ["featPromo", "featMontage", "featMotion", "feat3d"],
+                    starsLink: "https://t.me/$KyXzOUjgyFLMCAAASXPRW0AsAM8"
+                },
+                {
+                    id: "consulting",
+                    icon: "consulting",
+                    color: "teal",
+                    price: 104.99,
+                    features: ["featAudit", "featConsult", "featBusiness", "featMentor"],
+                    starsLink: "https://t.me/$W-qRc0jgyFLNCAAAd_vBRiMCbj4"
+                }
+            ],
+
+            // ===========================================
+            // 📚 COURSES / КУРСЫ (12 курсов!)
+            // badge: "hot" | "new" | "popular" | null
+            // ===========================================
+            courses: [
+                {
+                    id: "webdev",
+                    icon: "code",
+                    color: "blue",
+                    price: 317.99,
+                    oldPrice: 529.99,
+                    duration: "3",
+                    badge: "hot",
+                    features: ["cHtml", "cReact", "cNode", "cDeploy"],
+                    starsLink: "https://t.me/$qYbOyEjgyFK8CAAAkAp6Xdn_9gU"
+                },
+                {
+                    id: "uxui",
+                    icon: "design",
+                    color: "purple",
+                    price: 264.99,
+                    oldPrice: 424.99,
+                    duration: "2",
+                    badge: "popular",
+                    features: ["cFigma", "cUx", "cProto", "cPortfolio"],
+                    starsLink: "https://t.me/$WE1OWEjgyFK9CAAA4hpyiKSUvnY"
+                },
+                {
+                    id: "smm",
+                    icon: "marketing",
+                    color: "green",
+                    price: 211.99,
+                    oldPrice: 319.99,
+                    duration: "1.5",
+                    badge: "new",
+                    features: ["cStrategy", "cContent", "cAds", "cAnalytics"],
+                    starsLink: "https://t.me/$JBKlAkjgyFK-CAAApiZHNGRGlyY"
+                },
+                {
+                    id: "python",
+                    icon: "code",
+                    color: "yellow",
+                    price: 369.99,
+                    oldPrice: 579.99,
+                    duration: "4",
+                    badge: "hot",
+                    features: ["cPythonBasics", "cPythonOOP", "cPythonWeb", "cPythonData"],
+                    starsLink: "https://t.me/$wKDsqkjgyFK_CAAA9tfE21-ecco"
+                },
+                {
+                    id: "graphic",
+                    icon: "design",
+                    color: "pink",
+                    price: 199.99,
+                    oldPrice: 369.99,
+                    duration: "2.5",
+                    badge: null,
+                    features: ["cPhotoshop", "cIllustrator", "cBranding", "cPrint"],
+                    starsLink: "https://t.me/$cjx3U0jgyFLACAAAslRmRtq9HVg"
+                },
+                {
+                    id: "targeting",
+                    icon: "marketing",
+                    color: "orange",
+                    price: 119.99,
+                    oldPrice: 169.99,
+                    duration: "1",
+                    badge: "popular",
+                    features: ["cFacebookAds", "cInstagramAds", "cRetargeting", "cOptimization"],
+                    starsLink: "https://t.me/$z5FKp0jgyFLBCAAA9o-FzjeqG_M"
+                },
+                {
+                    id: "copywriting",
+                    icon: "content",
+                    color: "teal",
+                    price: 89.99,
+                    oldPrice: 119.99,
+                    duration: "1",
+                    badge: null,
+                    features: ["cSalesTexts", "cStorytelling", "cEmail", "cLanding"],
+                    starsLink: "https://t.me/$nLVtL0jgyFLCCAAAgwnrOE7SJKw"
+                },
+                {
+                    id: "videoediting",
+                    icon: "video",
+                    color: "red",
+                    price: 219.99,
+                    oldPrice: 399.99,
+                    duration: "2.5",
+                    badge: "new",
+                    features: ["cPremiere", "cAfterEffects", "cColorGrading", "cSound"],
+                    starsLink: "https://t.me/$mmRETkjgyFLDCAAAzE_qNxEK9bU"
+                },
+                {
+                    id: "datascience",
+                    icon: "code",
+                    color: "indigo",
+                    price: 359.99,
+                    oldPrice: 679.99,
+                    duration: "6",
+                    badge: "hot",
+                    features: ["cMachineLearning", "cDeepLearning", "cPandas", "cTensorflow"],
+                    starsLink: "https://t.me/$-uNR2EjgyFLECAAAzODC11mlNqY"
+                },
+                {
+                    id: "mobile",
+                    icon: "code",
+                    color: "cyan",
+                    price: 599.99,
+                    oldPrice: 899.99,
+                    duration: "4",
+                    badge: "popular",
+                    features: ["cReactNative", "cIOS", "cAndroid", "cPublish"],
+                    starsLink: "https://t.me/$O7a87kjgyFLFCAAAxF2iBLfUMHk"
+                },
+                {
+                    id: "threed",
+                    icon: "design",
+                    color: "mint",
+                    price: 169.99,
+                    oldPrice: 549.99,
+                    duration: "3",
+                    badge: null,
+                    features: ["cBlender", "cModeling", "cTexturing", "cAnimation"],
+                    starsLink: "https://t.me/$kKLiB0jgyFLGCAAAM0e92NYbxh8"
+                },
+                {
+                    id: "cybersec",
+                    icon: "consulting",
+                    color: "brown",
+                    price: 789.99,
+                    oldPrice: 1399.99,
+                    duration: "4",
+                    badge: "new",
+                    features: ["cEthicalHacking", "cPentest", "cSecurity", "cCrypto"],
+                    starsLink: "https://t.me/$bpN5jEjgyFLHCAAAQTYqfKyU0A8"
+                }
+            ],
+
+            // ===========================================
+            // 🌐 TRANSLATIONS / ПЕРЕВОДЫ
+            // ===========================================
+            texts: {
+                ru: {
+                    // Navigation
+                    "nav.home": "Главная",
+                    "nav.services": "Услуги",
+                    "nav.courses": "Курсы",
+                    "nav.contacts": "Контакты",
+                    "nav.login": "Войти",
+                    "nav.logout": "Выйти",
+                    "sidebar.menu": "Меню",
+                    
+                    // Hero
+                    "hero.title": "Ваш успех — наша работа",
+                    "hero.subtitle": "Премиальные фриланс-услуги для вашего бизнеса. Разработка, дизайн, маркетинг — всё в одном месте.",
+                    "hero.servicesBtn": "Смотреть услуги",
+                    "hero.coursesBtn": "Наши курсы",
+                    
+                    // Features
+                    "features.fast.title": "Быстрое выполнение",
+                    "features.fast.desc": "Сдаём проекты точно в срок",
+                    "features.quality.title": "Гарантия качества",
+                    "features.quality.desc": "Бесплатные правки",
+                    "features.support.title": "Поддержка 24/7",
+                    "features.support.desc": "Всегда на связи",
+                    
+                    // Services
+                    "services.label": "Услуги",
+                    "services.title": "Профессиональные услуги",
+                    "services.subtitle": "Качественные решения для вашего бизнеса от опытных специалистов",
+                    "services.order": "Заказать",
+                    "services.from": "от",
+                    
+                    // Service names
+                    "service.web": "Веб-разработка",
+                    "service.web.desc": "Создание современных сайтов и веб-приложений любой сложности",
+                    "service.design": "Дизайн",
+                    "service.design.desc": "Креативный дизайн для вашего бренда и продуктов",
+                    "service.marketing": "Маркетинг",
+                    "service.marketing.desc": "Продвижение бизнеса в интернете и соцсетях",
+                    "service.content": "Контент",
+                    "service.content.desc": "Качественный контент для сайтов и социальных сетей",
+                    "service.video": "Видео",
+                    "service.video.desc": "Создание видеороликов и анимации для любых целей",
+                    "service.consulting": "Консалтинг",
+                    "service.consulting.desc": "Экспертные консультации по развитию бизнеса",
+                    
+                    // Service features
+                    "feat.featLanding": "Лендинги и сайты",
+                    "feat.featAdmin": "Админ-панели",
+                    "feat.featAdaptive": "Адаптивный дизайн",
+                    "feat.featSEO": "SEO-оптимизация",
+                    "feat.featLogo": "Разработка логотипов",
+                    "feat.featBranding": "Фирменный стиль",
+                    "feat.featSocial": "Дизайн для соцсетей",
+                    "feat.featPrint": "Полиграфия",
+                    "feat.featSMM": "SMM-продвижение",
+                    "feat.featContext": "Контекстная реклама",
+                    "feat.featAnalytics": "Аналитика",
+                    "feat.featStrategy": "Маркетинг-стратегия",
+                    "feat.featArticles": "Статьи и посты",
+                    "feat.featCopy": "Копирайтинг",
+                    "feat.featTranslation": "Переводы",
+                    "feat.featEdit": "Редактура",
+                    "feat.featPromo": "Промо-ролики",
+                    "feat.featMontage": "Монтаж видео",
+                    "feat.featMotion": "Motion-дизайн",
+                    "feat.feat3d": "3D-анимация",
+                    "feat.featAudit": "Аудит бизнеса",
+                    "feat.featConsult": "Консультации",
+                    "feat.featBusiness": "Бизнес-планы",
+                    "feat.featMentor": "Менторинг",
+                    
+                    // Courses
+                    "courses.label": "Обучение",
+                    "courses.title": "Курсы для профессионалов",
+                    "courses.subtitle": "Освойте востребованные навыки с нуля до профессионала",
+                    "courses.buy": "Купить курс",
+                    "courses.months": "мес.",
+                    
+                    // Badges
+                    "badge.hot": "🔥 Хит",
+                    "badge.new": "✨ Новинка",
+                    "badge.popular": "⭐ Популярное",
+                    
+                    // Course names
+                    "course.webdev": "Веб-разработка",
+                    "course.webdev.desc": "Полный курс по созданию современных веб-приложений",
+                    "course.uxui": "UX/UI Дизайн",
+                    "course.uxui.desc": "Создание красивых и удобных интерфейсов",
+                    "course.smm": "SMM-маркетинг",
+                    "course.smm.desc": "Продвижение бизнеса в социальных сетях",
+                    "course.python": "Python с нуля",
+                    "course.python.desc": "Программирование на Python для начинающих и продвинутых",
+                    "course.graphic": "Графический дизайн",
+                    "course.graphic.desc": "Adobe Photoshop, Illustrator и создание визуального контента",
+                    "course.targeting": "Таргетированная реклама",
+                    "course.targeting.desc": "Facebook, Instagram Ads и эффективная реклама",
+                    "course.copywriting": "Копирайтинг PRO",
+                    "course.copywriting.desc": "Продающие тексты и контент-маркетинг",
+                    "course.videoediting": "Видеомонтаж",
+                    "course.videoediting.desc": "Premiere Pro, After Effects и профессиональный монтаж",
+                    "course.datascience": "Data Science",
+                    "course.datascience.desc": "Машинное обучение и анализ данных",
+                    "course.mobile": "Мобильная разработка",
+                    "course.mobile.desc": "Создание приложений для iOS и Android",
+                    "course.threed": "3D-моделирование",
+                    "course.threed.desc": "Blender, Cinema 4D и создание 3D-графики",
+                    "course.cybersec": "Кибербезопасность",
+                    "course.cybersec.desc": "Этичный хакинг и защита систем",
+                    
+                    // Course features
+                    "feat.cHtml": "HTML, CSS, JavaScript",
+                    "feat.cReact": "React и современные фреймворки",
+                    "feat.cNode": "Node.js и базы данных",
+                    "feat.cDeploy": "Деплой и CI/CD",
+                    "feat.cFigma": "Figma с нуля",
+                    "feat.cUx": "UX-исследования",
+                    "feat.cProto": "Прототипирование",
+                    "feat.cPortfolio": "Создание портфолио",
+                    "feat.cStrategy": "Стратегия продвижения",
+                    "feat.cContent": "Контент-маркетинг",
+                    "feat.cAds": "Таргетированная реклама",
+                    "feat.cAnalytics": "Аналитика и метрики",
+                    "feat.cPythonBasics": "Основы Python",
+                    "feat.cPythonOOP": "ООП и паттерны",
+                    "feat.cPythonWeb": "Django/Flask",
+                    "feat.cPythonData": "Анализ данных",
+                    "feat.cPhotoshop": "Adobe Photoshop",
+                    "feat.cIllustrator": "Adobe Illustrator",
+                    "feat.cBranding": "Брендинг",
+                    "feat.cPrint": "Дизайн для печати",
+                    "feat.cFacebookAds": "Facebook Ads",
+                    "feat.cInstagramAds": "Instagram Ads",
+                    "feat.cRetargeting": "Ретаргетинг",
+                    "feat.cOptimization": "Оптимизация кампаний",
+                    "feat.cSalesTexts": "Продающие тексты",
+                    "feat.cStorytelling": "Сторителлинг",
+                    "feat.cEmail": "Email-маркетинг",
+                    "feat.cLanding": "Тексты для лендингов",
+                    "feat.cPremiere": "Adobe Premiere Pro",
+                    "feat.cAfterEffects": "After Effects",
+                    "feat.cColorGrading": "Цветокоррекция",
+                    "feat.cSound": "Работа со звуком",
+                    "feat.cMachineLearning": "Machine Learning",
+                    "feat.cDeepLearning": "Deep Learning",
+                    "feat.cPandas": "Pandas и NumPy",
+                    "feat.cTensorflow": "TensorFlow/PyTorch",
+                    "feat.cReactNative": "React Native",
+                    "feat.cIOS": "iOS разработка",
+                    "feat.cAndroid": "Android разработка",
+                    "feat.cPublish": "Публикация в сторах",
+                    "feat.cBlender": "Blender с нуля",
+                    "feat.cModeling": "3D-моделирование",
+                    "feat.cTexturing": "Текстурирование",
+                    "feat.cAnimation": "Анимация",
+                    "feat.cEthicalHacking": "Этичный хакинг",
+                    "feat.cPentest": "Пентестинг",
+                    "feat.cSecurity": "Защита систем",
+                    "feat.cCrypto": "Криптография",
+                    
+                    // Contacts
+                    "contacts.label": "Контакты",
+                    "contacts.title": "Свяжитесь с нами",
+                    "contacts.subtitle": "Выберите удобный способ связи — мы всегда рады помочь",
+                    "contacts.open": "Открыть",
+                    "contacts.write": "Написать",
+                    "contacts.telegram": "Telegram",
+                    "contacts.telegram.desc": "Быстрые ответы в мессенджере",
+                    "contacts.whatsapp": "WhatsApp",
+                    "contacts.whatsapp.desc": "Позвоните или напишите",
+                    "contacts.instagram": "Instagram",
+                    "contacts.instagram.desc": "Наши работы и новости",
+                    "contacts.email": "Email",
+                    "contacts.email.desc": "Для деловых предложений",
+                    
+                    // Auth
+                    "auth.title": "Вход в аккаунт",
+                    "auth.google": "Войти через Google",
+                    "auth.or": "или",
+                    "auth.email": "Email",
+                    "auth.password": "Пароль",
+                    
+                    // Payment
+                    "payment.title": "Оплата",
+                    "payment.selectMethod": "Выберите способ оплаты",
+                    "payment.card": "Банковская карта",
+                    "payment.card.desc": "Visa, Mastercard, МИР",
+                    "payment.sbp": "СБП",
+                    "payment.sbp.desc": "Система быстрых платежей",
+                    "payment.wallet": "Telegram Wallet",
+                    "payment.wallet.desc": "Оплата через Telegram",
+                    "payment.stars": "Telegram Stars",
+                    "payment.stars.desc": "Оплата звёздами",
+                    "payment.crypto": "Криптовалюта",
+                    "payment.crypto.desc": "BTC, ETH, USDT, TON",
+                    "payment.popular": "Популярное",
+                    "payment.fast": "Быстро",
+                    "payment.back": "Назад",
+                    "payment.copy": "Скопировать",
+                    "payment.copied": "Скопировано!",
+                    "payment.cardNumber": "Номер карты",
+                    "payment.recipient": "Получатель",
+                    "payment.bank": "Банк",
+                    "payment.amount": "Сумма",
+                    "payment.phone": "Номер телефона",
+                    "payment.username": "Username",
+                    "payment.openWallet": "Открыть Wallet",
+                    "payment.starsCount": "Количество Stars",
+                    "payment.openBot": "Открыть бот",
+                    "payment.selectCrypto": "Выберите криптовалюту",
+                    "payment.address": "Адрес кошелька",
+                    "payment.network": "Сеть",
+                    "payment.check": "Проверить оплату",
+                    "payment.checking": "Проверяем...",
+                    "payment.error": "Платёж не найден",
+                    "payment.errorDesc": "Попробуйте ещё раз или обратитесь в поддержку",
+                    "payment.support": "Обратиться в поддержку",
+                    "payment.success": "Оплата успешна!",
+                    "payment.successDesc": "Спасибо за покупку",
+                    "payment.cardWarningTitle": "Внимание",
+                    "payment.cardWarningText": "В вашей стране оплата картой может быть недоступна. Используйте VPN или выключите VPN, если он включён.",
+                    
+                    // Footer
+                    "footer.rights": "Все права защищены."
+                },
+                en: {
+                    "nav.home": "Home",
+                    "nav.services": "Services",
+                    "nav.courses": "Courses",
+                    "nav.contacts": "Contacts",
+                    "nav.login": "Sign In",
+                    "nav.logout": "Sign Out",
+                    "sidebar.menu": "Menu",
+                    "hero.title": "Your success is our job",
+                    "hero.subtitle": "Premium freelance services for your business. Development, design, marketing — all in one place.",
+                    "hero.servicesBtn": "View Services",
+                    "hero.coursesBtn": "Our Courses",
+                    "features.fast.title": "Fast Delivery",
+                    "features.fast.desc": "Projects delivered on time",
+                    "features.quality.title": "Quality Guarantee",
+                    "features.quality.desc": "Free revisions",
+                    "features.support.title": "24/7 Support",
+                    "features.support.desc": "Always in touch",
+                    "services.label": "Services",
+                    "services.title": "Professional Services",
+                    "services.subtitle": "Quality solutions for your business from experienced specialists",
+                    "services.order": "Order",
+                    "services.from": "from",
+                    "service.web": "Web Development",
+                    "service.web.desc": "Creating modern websites and web applications",
+                    "service.design": "Design",
+                    "service.design.desc": "Creative design for your brand",
+                    "service.marketing": "Marketing",
+                    "service.marketing.desc": "Business promotion online",
+                    "service.content": "Content",
+                    "service.content.desc": "Quality content for websites",
+                    "service.video": "Video",
+                    "service.video.desc": "Creating videos and animations",
+                    "service.consulting": "Consulting",
+                    "service.consulting.desc": "Expert business consultations",
+                    "feat.featLanding": "Landing pages & websites",
+                    "feat.featAdmin": "Admin panels",
+                    "feat.featAdaptive": "Responsive design",
+                    "feat.featSEO": "SEO optimization",
+                    "feat.featLogo": "Logo design",
+                    "feat.featBranding": "Brand identity",
+                    "feat.featSocial": "Social media design",
+                    "feat.featPrint": "Print design",
+                    "feat.featSMM": "SMM promotion",
+                    "feat.featContext": "PPC advertising",
+                    "feat.featAnalytics": "Analytics",
+                    "feat.featStrategy": "Marketing strategy",
+                    "feat.featArticles": "Articles & posts",
+                    "feat.featCopy": "Copywriting",
+                    "feat.featTranslation": "Translation",
+                    "feat.featEdit": "Editing",
+                    "feat.featPromo": "Promo videos",
+                    "feat.featMontage": "Video editing",
+                    "feat.featMotion": "Motion design",
+                    "feat.feat3d": "3D animation",
+                    "feat.featAudit": "Business audit",
+                    "feat.featConsult": "Consultations",
+                    "feat.featBusiness": "Business plans",
+                    "feat.featMentor": "Mentoring",
+                    "courses.label": "Education",
+                    "courses.title": "Courses for Professionals",
+                    "courses.subtitle": "Master in-demand skills from zero to professional",
+                    "courses.buy": "Buy Course",
+                    "courses.months": "mo.",
+                    "badge.hot": "🔥 Hot",
+                    "badge.new": "✨ New",
+                    "badge.popular": "⭐ Popular",
+                    "course.webdev": "Web Development",
+                    "course.webdev.desc": "Complete course on modern web applications",
+                    "course.uxui": "UX/UI Design",
+                    "course.uxui.desc": "Creating beautiful and user-friendly interfaces",
+                    "course.smm": "SMM Marketing",
+                    "course.smm.desc": "Business promotion on social networks",
+                    "course.python": "Python from Zero",
+                    "course.python.desc": "Python programming for beginners and advanced",
+                    "course.graphic": "Graphic Design",
+                    "course.graphic.desc": "Adobe Photoshop, Illustrator and visual content",
+                    "course.targeting": "Targeted Advertising",
+                    "course.targeting.desc": "Facebook, Instagram Ads and effective advertising",
+                    "course.copywriting": "Copywriting PRO",
+                    "course.copywriting.desc": "Sales texts and content marketing",
+                    "course.videoediting": "Video Editing",
+                    "course.videoediting.desc": "Premiere Pro, After Effects and professional editing",
+                    "course.datascience": "Data Science",
+                    "course.datascience.desc": "Machine learning and data analysis",
+                    "course.mobile": "Mobile Development",
+                    "course.mobile.desc": "Creating apps for iOS and Android",
+                    "course.threed": "3D Modeling",
+                    "course.threed.desc": "Blender, Cinema 4D and 3D graphics",
+                    "course.cybersec": "Cybersecurity",
+                    "course.cybersec.desc": "Ethical hacking and system protection",
+                    "feat.cHtml": "HTML, CSS, JavaScript",
+                    "feat.cReact": "React and modern frameworks",
+                    "feat.cNode": "Node.js and databases",
+                    "feat.cDeploy": "Deploy and CI/CD",
+                    "feat.cFigma": "Figma from scratch",
+                    "feat.cUx": "UX research",
+                    "feat.cProto": "Prototyping",
+                    "feat.cPortfolio": "Portfolio creation",
+                    "feat.cStrategy": "Promotion strategy",
+                    "feat.cContent": "Content marketing",
+                    "feat.cAds": "Targeted advertising",
+                    "feat.cAnalytics": "Analytics and metrics",
+                    "feat.cPythonBasics": "Python basics",
+                    "feat.cPythonOOP": "OOP and patterns",
+                    "feat.cPythonWeb": "Django/Flask",
+                    "feat.cPythonData": "Data analysis",
+                    "feat.cPhotoshop": "Adobe Photoshop",
+                    "feat.cIllustrator": "Adobe Illustrator",
+                    "feat.cBranding": "Branding",
+                    "feat.cPrint": "Print design",
+                    "feat.cFacebookAds": "Facebook Ads",
+                    "feat.cInstagramAds": "Instagram Ads",
+                    "feat.cRetargeting": "Retargeting",
+                    "feat.cOptimization": "Campaign optimization",
+                    "feat.cSalesTexts": "Sales texts",
+                    "feat.cStorytelling": "Storytelling",
+                    "feat.cEmail": "Email marketing",
+                    "feat.cLanding": "Landing page copy",
+                    "feat.cPremiere": "Adobe Premiere Pro",
+                    "feat.cAfterEffects": "After Effects",
+                    "feat.cColorGrading": "Color grading",
+                    "feat.cSound": "Sound design",
+                    "feat.cMachineLearning": "Machine Learning",
+                    "feat.cDeepLearning": "Deep Learning",
+                    "feat.cPandas": "Pandas and NumPy",
+                    "feat.cTensorflow": "TensorFlow/PyTorch",
+                    "feat.cReactNative": "React Native",
+                    "feat.cIOS": "iOS development",
+                    "feat.cAndroid": "Android development",
+                    "feat.cPublish": "App Store publishing",
+                    "feat.cBlender": "Blender from scratch",
+                    "feat.cModeling": "3D modeling",
+                    "feat.cTexturing": "Texturing",
+                    "feat.cAnimation": "Animation",
+                    "feat.cEthicalHacking": "Ethical hacking",
+                    "feat.cPentest": "Pentesting",
+                    "feat.cSecurity": "System protection",
+                    "feat.cCrypto": "Cryptography",
+                    "contacts.label": "Contacts",
+                    "contacts.title": "Contact Us",
+                    "contacts.subtitle": "Choose a convenient way to contact us",
+                    "contacts.open": "Open",
+                    "contacts.write": "Write",
+                    "contacts.telegram": "Telegram",
+                    "contacts.telegram.desc": "Fast replies in messenger",
+                    "contacts.whatsapp": "WhatsApp",
+                    "contacts.whatsapp.desc": "Call or write to us",
+                    "contacts.instagram": "Instagram",
+                    "contacts.instagram.desc": "Our works and news",
+                    "contacts.email": "Email",
+                    "contacts.email.desc": "For business inquiries",
+                    "auth.title": "Sign In",
+                    "auth.google": "Sign in with Google",
+                    "auth.or": "or",
+                    "auth.email": "Email",
+                    "auth.password": "Password",
+                    "payment.title": "Payment",
+                    "payment.selectMethod": "Select payment method",
+                    "payment.card": "Bank Card",
+                    "payment.card.desc": "Visa, Mastercard, MIR",
+                    "payment.sbp": "SBP",
+                    "payment.sbp.desc": "Fast Payment System",
+                    "payment.wallet": "Telegram Wallet",
+                    "payment.wallet.desc": "Pay via Telegram",
+                    "payment.stars": "Telegram Stars",
+                    "payment.stars.desc": "Pay with stars",
+                    "payment.crypto": "Cryptocurrency",
+                    "payment.crypto.desc": "BTC, ETH, USDT, TON",
+                    "payment.popular": "Popular",
+                    "payment.fast": "Fast",
+                    "payment.back": "Back",
+                    "payment.copy": "Copy",
+                    "payment.copied": "Copied!",
+                    "payment.cardNumber": "Card number",
+                    "payment.recipient": "Recipient",
+                    "payment.bank": "Bank",
+                    "payment.amount": "Amount",
+                    "payment.phone": "Phone number",
+                    "payment.username": "Username",
+                    "payment.openWallet": "Open Wallet",
+                    "payment.starsCount": "Stars count",
+                    "payment.openBot": "Open Bot",
+                    "payment.selectCrypto": "Select cryptocurrency",
+                    "payment.address": "Wallet address",
+                    "payment.network": "Network",
+                    "payment.check": "Check Payment",
+                    "payment.checking": "Checking...",
+                    "payment.error": "Payment not found",
+                    "payment.errorDesc": "Try again or contact support",
+                    "payment.support": "Contact Support",
+                    "payment.success": "Payment successful!",
+                    "payment.successDesc": "Thank you for your purchase",
+                    "payment.cardWarningTitle": "Warning",
+                    "payment.cardWarningText": "Card payment may not be available in your country. Use VPN or disable VPN if enabled.",
+                    "footer.rights": "All rights reserved."
+                }
+            }
+        };
+
+        /* ================================================
+           APP STATE & VARIABLES
+           ================================================ */
+        let currentLang = 'ru';
+        let currentPage = 'home';
+        let currentPayment = { item: null, method: null, crypto: null };
+        let currentUser = null;
+
+        /* ================================================
+           ICONS
+           ================================================ */
+        const ICONS = {
+            code: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>',
+            design: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="4"/></svg>',
+            marketing: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>',
+            content: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>',
+            video: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>',
+            consulting: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>',
+            check: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>',
+            telegram: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>',
+            whatsapp: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>',
+            instagram: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C8.74 0 8.333.015 7.053.072 5.775.132 4.905.333 4.14.63c-.789.306-1.459.717-2.126 1.384S.935 3.35.63 4.14C.333 4.905.131 5.775.072 7.053.012 8.333 0 8.74 0 12s.015 3.667.072 4.947c.06 1.277.261 2.148.558 2.913.306.788.717 1.459 1.384 2.126.667.666 1.336 1.079 2.126 1.384.766.296 1.636.499 2.913.558C8.333 23.988 8.74 24 12 24s3.667-.015 4.947-.072c1.277-.06 2.148-.262 2.913-.558.788-.306 1.459-.718 2.126-1.384.666-.667 1.079-1.335 1.384-2.126.296-.765.499-1.636.558-2.913.06-1.28.072-1.687.072-4.947s-.015-3.667-.072-4.947c-.06-1.277-.262-2.149-.558-2.913-.306-.789-.718-1.459-1.384-2.126C21.319 1.347 20.651.935 19.86.63c-.765-.297-1.636-.499-2.913-.558C15.667.012 15.26 0 12 0zm0 2.16c3.203 0 3.585.016 4.85.071 1.17.055 1.805.249 2.227.415.562.217.96.477 1.382.896.419.42.679.819.896 1.381.164.422.36 1.057.413 2.227.057 1.266.07 1.646.07 4.85s-.015 3.585-.074 4.85c-.061 1.17-.256 1.805-.421 2.227-.224.562-.479.96-.899 1.382-.419.419-.824.679-1.38.896-.42.164-1.065.36-2.235.413-1.274.057-1.649.07-4.859.07-3.211 0-3.586-.015-4.859-.074-1.171-.061-1.816-.256-2.236-.421-.569-.224-.96-.479-1.379-.899-.421-.419-.69-.824-.9-1.38-.165-.42-.359-1.065-.42-2.235-.045-1.26-.061-1.649-.061-4.844 0-3.196.016-3.586.061-4.861.061-1.17.255-1.814.42-2.234.21-.57.479-.96.9-1.381.419-.419.81-.689 1.379-.898.42-.166 1.051-.361 2.221-.421 1.275-.045 1.65-.06 4.859-.06l.045.03zm0 3.678c-3.405 0-6.162 2.76-6.162 6.162 0 3.405 2.76 6.162 6.162 6.162 3.405 0 6.162-2.76 6.162-6.162 0-3.405-2.757-6.162-6.162-6.162zM12 16c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4zm7.846-10.405c0 .795-.646 1.44-1.44 1.44-.795 0-1.44-.646-1.44-1.44 0-.794.646-1.439 1.44-1.439.793-.001 1.44.645 1.44 1.439z"/></svg>',
+            email: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>',
+            back: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>',
+            error: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>',
+            bitcoin: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.638 14.904c-1.602 6.43-8.113 10.34-14.542 8.736C2.67 22.05-1.244 15.525.362 9.105 1.962 2.67 8.475-1.243 14.9.358c6.43 1.605 10.342 8.115 8.738 14.546z"/></svg>',
+            ethereum: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 17.97L4.58 13.62 11.943 24l7.37-10.38-7.372 4.35h.003zM12.056 0L4.69 12.223l7.365 4.354 7.365-4.35L12.056 0z"/></svg>',
+            usdt: '<svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="12"/></svg>',
+            ton: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L2 7l3.5 12h13L22 7L12 2z"/></svg>'
+        };
+
+        /* ================================================
+           HELPER FUNCTIONS
+           ================================================ */
+        function formatPrice(price) {
+            const { symbol, position } = CONFIG.currency;
+            const formatted = price.toLocaleString();
+            return position === 'before' ? `${symbol}${formatted}` : `${formatted} ${symbol}`;
+        }
+
+        function t(key) {
+            return CONFIG.texts[currentLang][key] || key;
+        }
+
+        function setLang(lang) {
+            currentLang = lang;
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.textContent === lang.toUpperCase());
+            });
+            updateTexts();
+        }
+
+        function updateTexts() {
+            document.querySelectorAll('[data-text]').forEach(el => {
+                el.textContent = t(el.getAttribute('data-text'));
+            });
+            document.querySelectorAll('[data-placeholder]').forEach(el => {
+                el.placeholder = t(el.getAttribute('data-placeholder'));
+            });
+            renderServices();
+            renderCourses();
+            renderContacts();
+        }
+
+        /* ================================================
+           PAGE NAVIGATION
+           ================================================ */
+        function showPage(page) {
+            currentPage = page;
+            document.querySelectorAll('.page').forEach(p => p.classList.add('hidden'));
+            document.getElementById('page-' + page).classList.remove('hidden');
+            document.querySelectorAll('.nav-link, .sidebar-link').forEach(link => {
+                link.classList.toggle('active', link.getAttribute('data-page') === page);
+            });
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        /* ================================================
+           SIDEBAR
+           ================================================ */
+        function toggleSidebar() {
+            document.querySelector('.sidebar').classList.toggle('active');
+            document.querySelector('.sidebar-overlay').classList.toggle('active');
+            document.querySelector('.burger-btn').classList.toggle('active');
+            document.body.style.overflow = document.querySelector('.sidebar').classList.contains('active') ? 'hidden' : '';
+        }
+
+        function closeSidebar() {
+            document.querySelector('.sidebar').classList.remove('active');
+            document.querySelector('.sidebar-overlay').classList.remove('active');
+            document.querySelector('.burger-btn').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        /* ================================================
+           MODALS
+           ================================================ */
+        function openModal(name) {
+            document.getElementById('modal-' + name).classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal(name) {
+            document.getElementById('modal-' + name).classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        /* ================================================
+           FIREBASE AUTH
+           ================================================ */
+        function signInWithGoogle() {
+            if (!CONFIG.firebase.enabled) {
+                alert('Firebase не настроен. Смотрите инструкцию в CONFIG.firebase');
+                return;
+            }
+            
+            // Firebase auth logic
+            const provider = new firebase.auth.GoogleAuthProvider();
+            firebase.auth().signInWithPopup(provider)
+                .then((result) => {
+                    currentUser = result.user;
+                    updateAuthUI();
+                    closeModal('auth');
+                })
+                .catch((error) => {
+                    console.error('Auth error:', error);
+                    alert('Ошибка входа: ' + error.message);
+                });
+        }
+
+        function signOut() {
+            if (CONFIG.firebase.enabled) {
+                firebase.auth().signOut().then(() => {
+                    currentUser = null;
+                    updateAuthUI();
+                });
+            }
+        }
+
+        function updateAuthUI() {
+            const desktopBtn = document.getElementById('auth-button-desktop');
+            const mobileBtn = document.getElementById('auth-button-mobile');
+            
+            if (currentUser) {
+                const userHtml = `
+                    <div class="user-info">
+                        <img src="${currentUser.photoURL || ''}" alt="" class="user-avatar">
+                        <span class="user-name">${currentUser.displayName || 'User'}</span>
+                        <button class="btn btn-secondary btn-small" onclick="signOut()">${t('nav.logout')}</button>
+                    </div>
+                `;
+                desktopBtn.innerHTML = userHtml;
+                mobileBtn.innerHTML = `<button class="btn btn-secondary sidebar-login-btn" onclick="signOut(); closeSidebar();">${t('nav.logout')}</button>`;
+            } else {
+                desktopBtn.innerHTML = `<button class="btn btn-primary btn-small" onclick="openModal('auth')" data-text="nav.login">${t('nav.login')}</button>`;
+                mobileBtn.innerHTML = `<button class="btn btn-primary sidebar-login-btn" onclick="openModal('auth'); closeSidebar();" data-text="nav.login">${t('nav.login')}</button>`;
+            }
+        }
+
+        /* ================================================
+           RENDER FUNCTIONS
+           ================================================ */
+        function renderServices() {
+            const grid = document.getElementById('services-grid');
+            grid.innerHTML = CONFIG.services.map(s => `
+                <div class="card">
+                    <div class="card-icon ${s.color}">${ICONS[s.icon]}</div>
+                    <h3 class="card-title">${t('service.' + s.id)}</h3>
+                    <p class="card-description">${t('service.' + s.id + '.desc')}</p>
+                    <div class="card-price">${t('services.from')} ${formatPrice(s.price)}</div>
+                    <ul class="card-features">
+                        ${s.features.map(f => `<li>${ICONS.check}<span>${t('feat.' + f)}</span></li>`).join('')}
+                    </ul>
+                    <button class="btn btn-primary" onclick="openPayment('service', '${s.id}', ${s.price})">${t('services.order')}</button>
+                </div>
+            `).join('');
+        }
+
+        function renderCourses() {
+            const grid = document.getElementById('courses-grid');
+            grid.innerHTML = CONFIG.courses.map(c => `
+                <div class="card">
+                    ${c.badge ? `<div class="card-badge ${c.badge}">${t('badge.' + c.badge)}</div>` : ''}
+                    <div class="card-icon ${c.color}">${ICONS[c.icon]}</div>
+                    <h3 class="card-title">${t('course.' + c.id)}</h3>
+                    <p class="card-description">${t('course.' + c.id + '.desc')}</p>
+                    <div class="card-price">${formatPrice(c.price)} <span>/ ${c.duration} ${t('courses.months')}</span></div>
+                    ${c.oldPrice ? `<div class="card-price-old">${formatPrice(c.oldPrice)}</div>` : ''}
+                    <ul class="card-features">
+                        ${c.features.map(f => `<li>${ICONS.check}<span>${t('feat.' + f)}</span></li>`).join('')}
+                    </ul>
+                    <button class="btn btn-primary" onclick="openPayment('course', '${c.id}', ${c.price})">${t('courses.buy')}</button>
+                </div>
+            `).join('');
+        }
+
+        function renderContacts() {
+            const grid = document.getElementById('contacts-grid');
+            const contacts = [
+                { id: 'telegram', icon: 'telegram', link: CONFIG.social.telegram },
+                { id: 'whatsapp', icon: 'whatsapp', link: CONFIG.social.whatsapp },
+                { id: 'instagram', icon: 'instagram', link: CONFIG.social.instagram },
+                { id: 'email', icon: 'email', link: CONFIG.social.email ? 'mailto:' + CONFIG.social.email : '' }
+            ].filter(c => c.link && c.link.trim() !== '' && c.link !== 'mailto:');
+            
+            grid.innerHTML = contacts.map(c => `
+                <div class="contact-card">
+                    <div class="contact-icon ${c.id}">${ICONS[c.icon]}</div>
+                    <h3>${t('contacts.' + c.id)}</h3>
+                    <p>${t('contacts.' + c.id + '.desc')}</p>
+                    <a href="${c.link}" target="_blank" class="btn btn-primary btn-small">
+                        ${c.id === 'email' ? t('contacts.write') : t('contacts.open')}
+                    </a>
+                </div>
+            `).join('');
+        }
+
+        /* ================================================
+           PAYMENT FUNCTIONS
+           ================================================ */
+        function getProduct(type, id) {
+            return type === 'service' 
+                ? CONFIG.services.find(s => s.id === id)
+                : CONFIG.courses.find(c => c.id === id);
+        }
+
+        function openPayment(type, id, price) {
+            currentPayment = { type, id, price, product: getProduct(type, id) };
+            renderPaymentMethods();
+            openModal('payment');
+        }
+
+        function renderPaymentMethods() {
+            const body = document.getElementById('payment-modal-body');
+            const m = CONFIG.paymentMethods;
+            
+            const hasCard = CONFIG.cardPayment?.cardNumber?.trim();
+            const hasSbp = CONFIG.sbpPayment?.phoneNumber?.trim();
+            const hasWallet = CONFIG.telegramWallet?.username?.trim() && CONFIG.telegramWallet?.botLink?.trim();
+            const hasStars = CONFIG.telegramStars?.botLink?.trim();
+            const hasCrypto = Object.values(CONFIG.crypto).some(c => c.enabled && c.address?.trim());
+            
+            let html = `<p style="color: var(--text-secondary); margin-bottom: 20px;">${t('payment.selectMethod')}</p>`;
+            
+            if (m.card.enabled && hasCard) html += paymentItem('card', 'card', t('payment.card'), t('payment.card.desc'), m.card);
+            if (m.sbp.enabled && hasSbp) html += paymentItem('sbp', 'wallet', t('payment.sbp'), t('payment.sbp.desc'), m.sbp);
+            if (m.telegramWallet.enabled && hasWallet) html += paymentItem('wallet', 'wallet', t('payment.wallet'), t('payment.wallet.desc'), m.telegramWallet);
+            if (m.telegramStars.enabled && hasStars) html += paymentItem('stars', 'stars', t('payment.stars'), t('payment.stars.desc'), m.telegramStars);
+            if (m.crypto.enabled && hasCrypto) html += paymentItem('crypto', 'crypto', t('payment.crypto'), t('payment.crypto.desc'), m.crypto);
+            
+            body.innerHTML = html;
+        }
+
+        function paymentItem(method, icon, title, desc, cfg) {
+            let badges = '';
+            if (cfg.popular) badges += `<span class="badge badge-popular">${t('payment.popular')}</span>`;
+            if (cfg.fast) badges += `<span class="badge badge-fast">${t('payment.fast')}</span>`;
+            
+            return `
+                <div class="payment-item" onclick="selectMethod('${method}')">
+                    <div class="payment-item-icon ${icon}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg></div>
+                    <div class="payment-item-info"><h4>${title}</h4><p>${desc}</p></div>
+                    ${badges ? `<div class="payment-badges">${badges}</div>` : ''}
+                    <div class="payment-item-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20"><polyline points="9 18 15 12 9 6"/></svg></div>
+                </div>
+            `;
+        }
+
+        function selectMethod(method) {
+            currentPayment.method = method;
+            if (method === 'crypto') {
+                renderCrypto();
+            } else {
+                renderDetails(method);
+            }
+        }
+
+        function renderCrypto() {
+            const body = document.getElementById('payment-modal-body');
+            const cryptos = Object.entries(CONFIG.crypto).filter(([_, c]) => c.enabled && c.address?.trim());
+            
+            let html = `<button class="modal-back" onclick="renderPaymentMethods()">${ICONS.back} ${t('payment.back')}</button>
+                <p style="color: var(--text-secondary); margin-bottom: 20px;">${t('payment.selectCrypto')}</p>
+                <div class="crypto-grid">`;
+            
+            cryptos.forEach(([key, c]) => {
+                html += `<div class="crypto-option" onclick="selectCrypto('${key}')" style="border-color: ${currentPayment.crypto === key ? c.color : 'transparent'}">
+                    <div style="width: 40px; height: 40px; color: ${c.color};">${ICONS[key] || ICONS.bitcoin}</div>
+                    <span>${c.name} (${c.symbol})</span>
+                </div>`;
+            });
+            html += '</div>';
+            
+            if (currentPayment.crypto) {
+                const c = CONFIG.crypto[currentPayment.crypto];
+                html += `<div class="payment-field"><div class="payment-field-label">${t('payment.address')}</div>
+                    <div class="payment-field-value"><span style="word-break: break-all; font-size: 13px;">${c.address}</span>
+                    <button class="copy-btn" onclick="copyText('${c.address}')">${t('payment.copy')}</button></div></div>
+                    <div class="payment-field"><div class="payment-field-label">${t('payment.network')}</div><div class="payment-field-value">${c.network}</div></div>
+                    <div class="payment-field"><div class="payment-field-label">${t('payment.amount')}</div><div class="payment-field-value">${formatPrice(currentPayment.price)}</div></div>
+                    <button class="btn btn-primary" style="width: 100%; margin-top: 20px;" onclick="checkPayment()">${t('payment.check')}</button>
+                    <div id="payment-status"></div>`;
+            }
+            body.innerHTML = html;
+        }
+
+        function selectCrypto(key) {
+            currentPayment.crypto = key;
+            renderCrypto();
+        }
+
+        function renderDetails(method) {
+            const body = document.getElementById('payment-modal-body');
+            const p = currentPayment.product;
+            
+            let html = `<button class="modal-back" onclick="renderPaymentMethods()">${ICONS.back} ${t('payment.back')}</button>
+                <div class="payment-details"><div class="payment-amount">${formatPrice(currentPayment.price)}</div>
+                <div class="payment-product">${currentPayment.type === 'course' ? t('course.' + currentPayment.id) : t('service.' + currentPayment.id)}</div></div>`;
+            
+            if (method === 'card') {
+                html += `<div style="background: linear-gradient(135deg, rgba(255,149,0,0.1), rgba(255,204,0,0.1)); border: 1px solid rgba(255,149,0,0.3); border-radius: var(--radius-md); padding: 16px; margin-bottom: 20px;">
+                    <div style="font-weight: 600; color: #cc7a00; margin-bottom: 4px;">${t('payment.cardWarningTitle')}</div>
+                    <div style="font-size: 13px; color: var(--text-secondary);">${t('payment.cardWarningText')}</div></div>
+                    <div class="payment-field"><div class="payment-field-label">${t('payment.cardNumber')}</div>
+                    <div class="payment-field-value">${CONFIG.cardPayment.cardNumber}<button class="copy-btn" onclick="copyText('${CONFIG.cardPayment.cardNumber.replace(/\s/g, '')}')">${t('payment.copy')}</button></div></div>
+                    <div class="payment-field"><div class="payment-field-label">${t('payment.recipient')}</div><div class="payment-field-value">${CONFIG.cardPayment.cardHolder}</div></div>
+                    <div class="payment-field"><div class="payment-field-label">${t('payment.bank')}</div><div class="payment-field-value">${CONFIG.cardPayment.bankName}</div></div>`;
+            } else if (method === 'sbp') {
+                html += `<div class="payment-field"><div class="payment-field-label">${t('payment.phone')}</div>
+                    <div class="payment-field-value">${CONFIG.sbpPayment.phoneNumber}<button class="copy-btn" onclick="copyText('${CONFIG.sbpPayment.phoneNumber.replace(/[\s\-\(\)]/g, '')}')">${t('payment.copy')}</button></div></div>
+                    <div class="payment-field"><div class="payment-field-label">${t('payment.bank')}</div><div class="payment-field-value">${CONFIG.sbpPayment.bankName}</div></div>
+                    <div class="payment-field"><div class="payment-field-label">${t('payment.recipient')}</div><div class="payment-field-value">${CONFIG.sbpPayment.recipientName}</div></div>`;
+            } else if (method === 'wallet') {
+                html += `<div class="payment-field"><div class="payment-field-label">${t('payment.username')}</div>
+                    <div class="payment-field-value">${CONFIG.telegramWallet.username}<button class="copy-btn" onclick="copyText('${CONFIG.telegramWallet.username}')">${t('payment.copy')}</button></div></div>
+                    <a href="${CONFIG.telegramWallet.botLink}" target="_blank" class="btn btn-primary" style="width: 100%; margin-top: 16px;">${t('payment.openWallet')}</a>`;
+            } else if (method === 'stars') {
+                const stars = Math.ceil(currentPayment.price * CONFIG.telegramStars.starsRate);
+                const link = p?.starsLink || CONFIG.telegramStars.botLink;
+                html += `<div class="payment-field"><div class="payment-field-label">${t('payment.starsCount')}</div><div class="payment-field-value">⭐ ${stars.toLocaleString()}</div></div>
+                    <a href="${link}" target="_blank" class="btn btn-primary" style="width: 100%; margin-top: 16px;">${t('payment.openBot')}</a>`;
+            }
+            
+            if (method === 'card' || method === 'sbp') {
+                html += `<button class="btn btn-primary" style="width: 100%; margin-top: 20px;" onclick="checkPayment()">${t('payment.check')}</button>`;
+            }
+            html += '<div id="payment-status"></div>';
+            body.innerHTML = html;
+        }
+
+        function copyText(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                event.target.textContent = t('payment.copied');
+                setTimeout(() => { event.target.textContent = t('payment.copy'); }, 2000);
+            });
+        }
+
+        function checkPayment() {
+            const el = document.getElementById('payment-status');
+            el.innerHTML = `<div class="payment-status loading"><div class="spinner"></div><h4>${t('payment.checking')}</h4></div>`;
+            
+            setTimeout(() => {
+                el.innerHTML = `<div class="payment-status error">${ICONS.error}<h4>${t('payment.error')}</h4><p>${t('payment.errorDesc')}</p>
+                    <a href="${CONFIG.supportLink}" target="_blank" class="btn btn-outline btn-small mt-4">${t('payment.support')}</a></div>`;
+            }, 2000);
+        }
+
+        /* ================================================
+           INITIALIZATION
+           ================================================ */
+        document.addEventListener('DOMContentLoaded', () => {
+            // Initialize Firebase if enabled
+            if (CONFIG.firebase.enabled && typeof firebase !== 'undefined') {
+                firebase.initializeApp(CONFIG.firebase);
+                firebase.auth().onAuthStateChanged((user) => {
+                    currentUser = user;
+                    updateAuthUI();
+                });
+            }
+            
+            updateTexts();
+        });
+    </script>
+</body>
+</html>
